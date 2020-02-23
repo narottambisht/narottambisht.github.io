@@ -1,0 +1,24 @@
+{
+  "name": "narottambisht-portfolio-website-4632cb512bd0",
+  "version": "1.0.0",
+  "description": "Complete Portfolio Website with Bootstrap - HTML/CSS In this project, we are going to learn and build how to create a complete portfolio website with bootstrap using HTML and CSS. We will understand everything from scratch.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narottambisht/narottambisht.github.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/narottambisht/narottambisht.github.com/issues"
+  },
+  "homepage": "https://narottambisht.github.io",
+  "dependencies": {
+    "gh-pages": "^2.2.0"
+  }
+}
