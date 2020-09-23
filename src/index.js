@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import './index.css'
 import App from './App';
@@ -11,7 +11,7 @@ import { WorkExperienceContextProvider } from './context/WorkExperienceContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <RootContextProvider>
         <PortfolioInfoContextProvider>
           <SkillsContextProvider>
@@ -21,7 +21,7 @@ ReactDOM.render(
           </SkillsContextProvider>
         </PortfolioInfoContextProvider>
       </RootContextProvider>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
