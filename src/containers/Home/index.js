@@ -26,13 +26,7 @@ const Home = (props) => {
       let workExperience = snapshot.docs.reverse();
       setWorkExperience(workExperience.map(doc => doc.data()));
     });
-
-    
   }, []);
-
-  useEffect(() => {
-    let dff = calcYearsOfExperience(workExperience);
-  }, [workExperience]);
 
   return (
     <React.Fragment>
