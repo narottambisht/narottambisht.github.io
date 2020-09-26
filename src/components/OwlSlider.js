@@ -8,8 +8,10 @@ const OwlSlider = props => {
     <React.Fragment>
       <OwlCarousel
         nav={true}
-        margin={30}
-        loop={true}
+        margin={20}
+        loop={false}
+        rewind={true}
+        center={true}
         autoplay={true}
         autoplayTimeout={2000}
         autoplayHoverPause={true}
