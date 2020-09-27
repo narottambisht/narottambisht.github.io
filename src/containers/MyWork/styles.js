@@ -16,22 +16,13 @@ const myWorkStyles = makeStyles(theme => ({
   projectLogo: {
     height: '100px', 
     verticalAlign: 'middle', 
-    display: 'table-cell'
+    display: 'table-cell',
   },
   projectDescription: {
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': 5,
     overflow: 'hidden'
-  },
-  projectGrid: {
-    transition: '0.5s',
-    '&:hover': {
-      transform: 'scale(1.1)',
-      background: theme.palette.primary.main,
-      boxShadow: '2px 2px 2px #000',
-      zIndex: 2
-    }
   }
 }));
 

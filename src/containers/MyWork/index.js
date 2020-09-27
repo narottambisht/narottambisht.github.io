@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import React, { useEffect, useState, useRef } from 'react';
-import { Grid, Card, CardHeader, Divider, CssBaseline, Typography, CardContent } from '@material-ui/core';
+import { Grid, Card, CardHeader, Divider, CssBaseline, Typography, CardContent, Button } from '@material-ui/core';
 
-import DancingText from '../../components/DancingText';
+import NeonButton from '../../components/NeonButton';
 import myWorkStyles from './styles';
 import { firestoreDB } from '../../utils/FirebaseConfig';
 
@@ -42,7 +42,7 @@ const MyWork = props => {
             <Grid container item spacing={2}>
               {projects.map((project, index) => {
                 return (
-                  <Grid item lg={4} sm={12} key={index} className={classes.projectGrid}
+                  <Grid item lg={4} sm={12} key={index}
                     onClick={() => setSelectedProject(project)}>
                     <div className={classes.projectLogo}>
                       <img src={project.project_logo} />
@@ -50,6 +50,7 @@ const MyWork = props => {
                     <Divider />
                     <Typography variant="subtitle1" className={classes.projectName}>{project.project_name}</Typography>
                     <Typography variant="subtitle2" className={classes.projectDescription} dangerouslySetInnerHTML={{ __html: project.description }} />
+                    <NeonButton />
                   </Grid>
                 )
               })}
