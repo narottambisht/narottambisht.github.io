@@ -1,0 +1,14 @@
+.dancing-animation-container {
+  width: 300px;
+}
+
+.dancing-animation-container p {
+  font-size: 12px;
+  line-height: 10px;
+  font-weight: bold;
+  background: url(images/dancing.gif) no-repeat;
+  background-position: center;
+  background-size: contain;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
