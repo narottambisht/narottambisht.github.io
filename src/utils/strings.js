@@ -1,0 +1,1 @@
+export const privacyPolicy = "*Due to Privacy Policy and signed NDA, cannot provide link to the production or development application.";

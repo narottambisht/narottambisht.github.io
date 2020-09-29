@@ -14,8 +14,8 @@ const myWorkStyles = makeStyles(theme => ({
     marginTop: 10
   },
   projectLogo: {
-    height: '100px', 
-    verticalAlign: 'middle', 
+    height: '100px',
+    verticalAlign: 'middle',
     display: 'table-cell',
   },
   projectDescription: {
@@ -23,6 +23,18 @@ const myWorkStyles = makeStyles(theme => ({
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': 5,
     overflow: 'hidden'
+  },
+  avatarLogo: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+  avatarImg: {
+    objectFit: 'contain'
+  },
+  privacyPolicy: {
+    textAlign: 'center',
+    marginTop: 15,
+    marginBottom: 15
   }
 }));
 

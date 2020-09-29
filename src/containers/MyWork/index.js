@@ -1,9 +1,10 @@
 import $ from 'jquery';
 import React, { useEffect, useState, useRef } from 'react';
-import { Grid, Card, CardHeader, Divider, CssBaseline, Typography, CardContent, Button } from '@material-ui/core';
+import { Grid, Card, CardHeader, Divider, CssBaseline, Typography, CardContent, Avatar } from '@material-ui/core';
 
-import NeonButton from '../../components/NeonButton';
 import myWorkStyles from './styles';
+import { privacyPolicy } from '../../utils/strings';
+import NeonButton from '../../components/NeonButton';
 import { firestoreDB } from '../../utils/FirebaseConfig';
 
 const MyWork = props => {
@@ -16,7 +17,19 @@ const MyWork = props => {
 
   useEffect(() => {
     firestoreDB.collection('projects').onSnapshot(snapshot => {
-      setProjects(snapshot.docs.map(doc => doc.data()));
+      setProjects(snapshot.docs.map(doc => {
+        let project = doc.data();
+        if (project.technology) {
+          let techArray = [];
+          project.technology.map(tech => {
+            tech.get().then(_projTech => {
+              techArray.push(_projTech.data());
+            });
+          });
+          project.tech = techArray;
+        }
+        return project;
+      }));
     });
   }, []);
 
@@ -24,8 +37,9 @@ const MyWork = props => {
     if (selectedProject) {
       projectVideoSourceRef.current.setAttribute('src', selectedProject.screencast_url);
       projectVideoRef.current.load();
+
       $('html,body').animate({
-        scrollTop: $("#projectInfo").offset().top - 80
+        scrollTop: $("#projectInfo").offset().top
       },
         'slow');
     }
@@ -68,12 +82,29 @@ const MyWork = props => {
                 </Grid>
                 <Grid item lg={8} sm={12}>
                   <Typography variant="subtitle2" dangerouslySetInnerHTML={{ __html: selectedProject.description }} />
+                  <Grid container item spacing={2}>
+                    {selectedProject.tech && selectedProject.tech.length > 0 && selectedProject.tech.map(_projTech => {
+                      return (
+                        <Grid item lg={3} md={3} sm={6} xs={6} style={{ display: 'flex' }}>
+                          <Avatar alt="Cindy Baker" className={classes.avatarLogo} src={_projTech.tech_logo_url} classes={{ img: classes.avatarImg }} />
+                          <div style={{ alignSelf: 'center' }}>{_projTech.tech_name}</div>
+                        </Grid>
+                      )
+                    })}
+                  </Grid>
                 </Grid>
                 <Grid item lg={12} sm={12}>
-                  <video ref={projectVideoRef} width={"100%"} height={400} controls controlsList="nodownload">
+                  <video ref={projectVideoRef} width={"100%"} height={"100%"} controls controlsList="nodownload">
                     <source ref={projectVideoSourceRef} />
                   </video>
                 </Grid>
+                {selectedProject.showPP &&
+                  <Grid lg={12} md={12} sm={12}>
+                    <p className={classes.privacyPolicy}>
+                      {privacyPolicy}
+                    </p>
+                  </Grid>
+                }
               </Grid>
             </CardContent>
           </Card>

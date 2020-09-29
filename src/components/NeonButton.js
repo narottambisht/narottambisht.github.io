@@ -1,19 +1,17 @@
 import React from 'react';
-import {neonButtonStyles} from './style';
+import { neonButtonStyles } from './style';
 
-const NeonButton = () => {
+const NeonButton = ({ onClick }) => {
   const classes = neonButtonStyles();
 
   return (
-    <div>
-      <a href="#" className={classes.anchorTag}>
-        <span className={classes.firstSpan}></span>
-        <span className={classes.secondSpan}></span>
-        <span className={classes.thirdSpan}></span>
-        <span  className={classes.fourthSpan}></span>
+    <a className={classes.anchorTag} onClick={onClick}>
+      <span className={classes.firstSpan}></span>
+      <span className={classes.secondSpan}></span>
+      <span className={classes.thirdSpan}></span>
+      <span className={classes.fourthSpan}></span>
         View More
-      </a>
-    </div>
+    </a>
   )
 }
 
