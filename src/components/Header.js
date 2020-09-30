@@ -2,10 +2,6 @@ import lottie from 'lottie-web';
 import { Route, Switch } from 'react-router-dom';
 import React, { useContext, useEffect } from 'react';
 import { Typography, Container, Grid, IconButton, CssBaseline, Tooltip } from '@material-ui/core';
-import {
-  CSSTransition,
-  TransitionGroup,
-} from 'react-transition-group';
 
 import Drawer from './Drawer';
 import Home from '../containers/Home';
@@ -90,20 +86,10 @@ const Header = props => {
         </Grid>
         <Drawer {...props} />
       </Container>
-      <Route render={({ location }) => (
-        <TransitionGroup>
-          <CSSTransition
-            key={location.key}
-            timeout={500}
-            classNames="fade"
-          >
-            <Switch location={location}>
-              <Route path={'/'} exact component={Home} />
-              <Route path={'/my-work'} exact component={MyWork} />
-            </Switch>
-          </CSSTransition>
-        </TransitionGroup>
-      )} />
+      <Switch>
+        <Route path={'/'} exact component={Home} />
+        <Route path={'/my-work'} exact component={MyWork} />
+      </Switch>
       <p style={{ textAlign: 'center' }}>
         © 2020 Narottam Bisht. All Rights Reserved
       </p>
