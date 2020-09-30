@@ -10,6 +10,13 @@ function App() {
   const [rootStore] = useContext(RootContext);
 
   const theme = responsiveFontSizes(createMuiTheme({
+    overrides: {
+      MuiCard: {
+        root: {
+          borderRadius: 20
+        }
+      }
+    },
     typography: {
       fontFamily: 'Montserrat'
     },

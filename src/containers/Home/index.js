@@ -33,7 +33,7 @@ const Home = (props) => {
       <Grid container spacing={2} className={classes.containerGrid}>
         <Grid item lg={8} sm={12}>
           <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
-            <Card style={{ borderRadius: 20 }}>
+            <Card>
               <CardHeader title={'🕴️ PROFILE'} />
               <Divider />
               <CardContent style={{ textAlign: 'justify' }}>
@@ -51,7 +51,7 @@ const Home = (props) => {
             </Card>
           </Grid>
           <Grid item lg={12} sm={12}>
-            <Card style={{ borderRadius: 20 }}>
+            <Card>
               <CardHeader title={'👨‍💻 WORK EXPERIENCE'} />
               <Divider />
               <CardContent style={{ textAlign: 'justify' }}>
@@ -80,7 +80,7 @@ const Home = (props) => {
         </Grid>
         <Grid item lg={4} sm={12}>
           <Grid item style={{ marginBottom: 15 }}>
-            <Card style={{ borderRadius: 20 }}>
+            <Card>
               <CardHeader title={'🛠 SKILLS'} />
               <Divider />
               <CardContent style={{ textAlign: 'justify' }}>
@@ -110,7 +110,7 @@ const Home = (props) => {
             </Card>
           </Grid>
           <Grid item>
-            <Card style={{ borderRadius: 20 }}>
+            <Card>
               <CardHeader title={'🌏 LANGUAGES'} />
               <Divider />
               <CardContent>

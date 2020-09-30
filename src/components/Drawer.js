@@ -1,21 +1,43 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Divider, IconButton, SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 
 import { drawerStyles } from './style';
 import { RootContext } from '../context/RootContext';
-import { MailIcon, InboxIcon, Brightness4Icon, Brightness7Icon } from '../utils/MaterialIcons';
+import { Brightness4Icon, Brightness7Icon } from '../utils/MaterialIcons';
 
 const Drawer = props => {
   const [rootStore, setRootStore] = useContext(RootContext);
   const classes = drawerStyles();
   const history = useHistory();
 
-  const routeChangeHandler = (listItem) => {
-    let routeToChange = listItem === 'HOME' ? '/' : listItem === 'MY WORK' ? '/my-work' : '/contact-me';
+  const routes = [
+    {
+      routeLabel: 'HOME',
+      routePath: '/',
+      routeIcon: '🏠'
+    },
+    {
+      routeLabel: 'ABOUT',
+      routePath: '/about',
+      routeIcon: '💁'
+    },
+    {
+      routeLabel: 'MY WORK',
+      routePath: '/my-work',
+      routeIcon: '👨‍💻'
+    },
+    {
+      routeLabel: 'CONTACT ME',
+      routePath: '/contact-me',
+      routeIcon: '📇'
+    }
+  ]
+
+  const routeChangeHandler = (route) => {
     setRootStore({ ...rootStore, drawerOpen: false });
-    history.push(routeToChange);
+    history.push(route.routePath);
   }
 
   const drawer = (
@@ -23,10 +45,10 @@ const Drawer = props => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {['HOME', 'MY WORK', 'CONTACT ME'].map((text, index) => (
-          <ListItem button key={text} onClick={() => routeChangeHandler(text)}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+        {routes.map((route, index) => (
+          <ListItem button key={index} onClick={() => routeChangeHandler(route)}>
+            <ListItemIcon>{route.routeIcon}</ListItemIcon>
+            <ListItemText primary={route.routeLabel} />
           </ListItem>
         ))}
       </List>
