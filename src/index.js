@@ -11,7 +11,7 @@ import { WorkExperienceContextProvider } from './context/WorkExperienceContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <RootContextProvider>
         <PortfolioInfoContextProvider>
           <SkillsContextProvider>
