@@ -1,11 +1,12 @@
 import $ from 'jquery';
 import React, { useEffect, useState, useRef } from 'react';
-import { Grid, Card, CardHeader, Divider, CssBaseline, Typography, CardContent, Avatar } from '@material-ui/core';
+import { Grid, Card, CardHeader, Divider, CssBaseline, Typography, CardContent, Avatar, Button } from '@material-ui/core';
 
 import myWorkStyles from './styles';
 import { privacyPolicy } from '../../utils/strings';
 import NeonButton from '../../components/NeonButton';
 import { firestoreDB } from '../../utils/FirebaseConfig';
+import { ScreenShareIcon } from '../../utils/MaterialIcons';
 
 const MyWork = props => {
   const [projects, setProjects] = useState([]);
@@ -59,7 +60,7 @@ const MyWork = props => {
                   <Grid item lg={4} sm={12} key={index}
                     onClick={() => setSelectedProject(project)}>
                     <div className={classes.projectLogo}>
-                      <img src={project.project_logo} />
+                      <img src={project.project_logo} width={'100%'} alt={project.project_name} />
                     </div>
                     <Divider />
                     <Typography variant="subtitle1" className={classes.projectName}>{project.project_name}</Typography>
@@ -78,20 +79,26 @@ const MyWork = props => {
             <CardContent>
               <Grid container item lg={12} sm={12} spacing={3}>
                 <Grid item lg={4} sm={12}>
-                  <img src={selectedProject.project_logo} />
+                  <img src={selectedProject.project_logo} width={'100%'} />
                 </Grid>
                 <Grid item lg={8} sm={12}>
                   <Typography variant="subtitle2" dangerouslySetInnerHTML={{ __html: selectedProject.description }} />
-                  <Grid container item spacing={2}>
-                    {selectedProject.tech && selectedProject.tech.length > 0 && selectedProject.tech.map(_projTech => {
+                  <Grid container item spacing={2} style={{ marginTop: 10 }}>
+                    {selectedProject.tech && selectedProject.tech.length > 0 && selectedProject.tech.map((_projTech, index) => {
                       return (
-                        <Grid item lg={3} md={3} sm={6} xs={6} style={{ display: 'flex' }}>
+                        <Grid key={index} item lg={3} md={3} sm={6} xs={6} style={{ display: 'flex' }} onClick={() => console.log("p", _projTech.tech_name)}>
                           <Avatar alt="Cindy Baker" className={classes.avatarLogo} src={_projTech.tech_logo_url} classes={{ img: classes.avatarImg }} />
-                          <div style={{ alignSelf: 'center' }}>{_projTech.tech_name}</div>
+                          <div style={{ alignSelf: 'center', marginLeft: 10 }}>{_projTech.tech_name}</div>
                         </Grid>
                       )
                     })}
                   </Grid>
+                  <Button variant="contained"
+                    color="primary"
+                    startIcon={<ScreenShareIcon />}
+                    onClick={() => window.open(selectedProject.website, "_blank")}
+                    className={classes.websiteLinkButton}>Link to Website
+                  </Button>
                 </Grid>
                 <Grid item lg={12} sm={12}>
                   <video ref={projectVideoRef} width={"100%"} height={"100%"} controls controlsList="nodownload">
@@ -99,7 +106,7 @@ const MyWork = props => {
                   </video>
                 </Grid>
                 {selectedProject.showPP &&
-                  <Grid lg={12} md={12} sm={12}>
+                  <Grid item lg={12} md={12} sm={12}>
                     <p className={classes.privacyPolicy}>
                       {privacyPolicy}
                     </p>

@@ -9,5 +9,6 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 
-export { MailIcon, InboxIcon, Brightness4Icon, Brightness7Icon, MenuIcon, FacebookIcon, TwitterIcon, GitHubIcon, LinkedInIcon, InstagramIcon, StarBorderIcon }
+export { MailIcon, InboxIcon, Brightness4Icon, Brightness7Icon, MenuIcon, FacebookIcon, TwitterIcon, GitHubIcon, LinkedInIcon, InstagramIcon, StarBorderIcon, ScreenShareIcon }

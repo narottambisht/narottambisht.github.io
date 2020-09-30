@@ -35,6 +35,11 @@ const myWorkStyles = makeStyles(theme => ({
     textAlign: 'center',
     marginTop: 15,
     marginBottom: 15
+  },
+  websiteLinkButton: {
+    width: '100%', 
+    borderRadius: 20, 
+    marginTop: 15
   }
 }));
 
