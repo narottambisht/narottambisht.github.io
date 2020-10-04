@@ -6,6 +6,7 @@ import { Typography, Container, Grid, IconButton, CssBaseline, Tooltip } from '@
 import Drawer from './Drawer';
 import Home from '../containers/Home';
 import { headerStyles } from './style';
+import About from '../containers/About';
 import MyWork from '../containers/MyWork';
 import { firestoreDB } from '../utils/FirebaseConfig';
 import { RootContext } from '../context/RootContext';
@@ -88,6 +89,7 @@ const Header = props => {
       </Container>
       <Switch>
         <Route path={'/'} exact component={Home} />
+        <Route path={'/about'} exact component={About} />
         <Route path={'/my-work'} exact component={MyWork} />
       </Switch>
       <p style={{ textAlign: 'center' }}>

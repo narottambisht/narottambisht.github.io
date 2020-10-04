@@ -19,7 +19,7 @@ const Drawer = props => {
       routeIcon: '🏠'
     },
     {
-      routeLabel: 'ABOUT',
+      routeLabel: '$whoami',
       routePath: '/about',
       routeIcon: '💁'
     },
@@ -33,7 +33,7 @@ const Drawer = props => {
       routePath: '/contact-me',
       routeIcon: '📇'
     }
-  ]
+  ];
 
   const routeChangeHandler = (route) => {
     setRootStore({ ...rootStore, drawerOpen: false });
