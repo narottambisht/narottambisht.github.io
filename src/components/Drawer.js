@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Divider, IconButton, SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { Divider, IconButton, SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, Button } from '@material-ui/core';
 
 import { drawerStyles } from './style';
 import { RootContext } from '../context/RootContext';
-import { Brightness4Icon, Brightness7Icon } from '../utils/MaterialIcons';
+import { PortfolioInfoContext } from '../context/PortfolioInfoContext';
+import { Brightness4Icon, Brightness7Icon, GetAppIcon } from '../utils/MaterialIcons';
 
 const Drawer = props => {
   const [rootStore, setRootStore] = useContext(RootContext);
+  const [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext);
   const classes = drawerStyles();
   const history = useHistory();
 
@@ -40,6 +42,15 @@ const Drawer = props => {
     history.push(route.routePath);
   }
 
+  const downloadResume = async () => {
+    const link = document.createElement('a');
+    link.href = portfolioInfoStore.resume_link;
+    link.setAttribute('download', 'Resume.pdf');
+    link.setAttribute('target', '_blank');
+    document.body.appendChild(link);
+    link.click();
+  }
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -51,9 +62,7 @@ const Drawer = props => {
             <ListItemText primary={route.routeLabel} />
           </ListItem>
         ))}
-      </List>
-      <Divider />
-      <List>
+        <Divider />
         <ListItem>
           <ListItemText primary={'THEME'} />
           <ListItemIcon>
@@ -62,6 +71,15 @@ const Drawer = props => {
               <IconButton onClick={() => setRootStore({ ...rootStore, theme: 'light' })}><Brightness7Icon /></IconButton>
             }
           </ListItemIcon>
+        </ListItem>
+        <ListItem>
+          <Button onClick={downloadResume}
+            style={{ width: '100%' }}
+            variant="contained"
+            color="primary"
+            startIcon={<GetAppIcon />}>
+            Download CV
+          </Button>
         </ListItem>
       </List>
     </div>
