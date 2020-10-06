@@ -1,14 +1,16 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Card, CardContent, CardHeader, Divider, Grid, Typography } from '@material-ui/core';
 
 import aboutStyles from './styles';
+import ImageGrid, { ImageGridModal } from '../../components/ImageGrid'
 import { firestoreDB } from '../../utils/FirebaseConfig';
 import { AboutContext } from '../../context/AboutContext';
 
 const About = () => {
+  const [selectedImg, setSelectedImg] = useState(null);
   const [aboutStore, setAboutStore] = useContext(AboutContext);
   const classes = aboutStyles();
-  
+
   useEffect(() => {
     firestoreDB.collection('about-info').onSnapshot(snapshot => {
       snapshot.docs.map(doc => setAboutStore(doc.data()));
@@ -53,7 +55,10 @@ const About = () => {
               <CardHeader title="ACHIEVEMENTS" />
               <Divider />
               <CardContent>
-
+                <ImageGrid setSelectedImg={setSelectedImg} imageArray={aboutStore.achievements} />
+                {selectedImg && (
+                  <ImageGridModal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+                )}
               </CardContent>
             </Card>
           </Grid>
@@ -64,17 +69,17 @@ const About = () => {
               <CardHeader title="DETAILS" />
               <Divider />
               <CardContent>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+                <div style={{ marginBottom: 10 }} className={classes.aboutDetails}>
                   <div style={{ fontWeight: 'bold' }}>Date of birth</div>
                   <div>12th June, 1995</div>
                 </div>
                 <Divider />
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10, marginTop: 10 }}>
+                <div style={{ marginBottom: 10, marginTop: 10 }} className={classes.aboutDetails}>
                   <div style={{ fontWeight: 'bold' }}>Nationality</div>
                   <div>Indian</div>
                 </div>
                 <Divider />
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+                <div style={{ marginTop: 10 }} className={classes.aboutDetails}>
                   <div style={{ fontWeight: 'bold' }}>Marrital Status</div>
                   <div>Unmarried</div>
                 </div>
@@ -85,6 +90,21 @@ const About = () => {
             <Card>
               <CardHeader title="HOBBIES" />
               <Divider />
+              <CardContent>
+                {aboutStore.hobbies && aboutStore.hobbies.map((_hobby, index) => {
+                  return (
+                    <>
+                      <div className={classes.hobbyDiv} key={index}>
+                        <img src={_hobby.hobby_logo_url} height={40} width={40} />
+                        <Typography variant="subtitle1">
+                          {_hobby.hobby_name}
+                        </Typography>
+                      </div>
+                      {index + 1 !== aboutStore.hobbies.length && <Divider />}
+                    </>
+                  )
+                })}
+              </CardContent>
             </Card>
           </Grid>
         </Grid>

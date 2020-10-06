@@ -64,7 +64,7 @@ const neonButtonStyles = makeStyles(theme => ({
     textTransform: 'uppercase',
     overflow: 'hidden',
     transition: '0.5s',
-      '-webkit-box-reflect': 'below 1px linear-gradient(transparent, #0005)',
+    '-webkit-box-reflect': 'below 1px linear-gradient(transparent, #0005)',
     filter: 'hue-rotate(290deg)',
     '&:hover': {
       background: '#03e9f4',
@@ -151,4 +151,45 @@ const neonButtonStyles = makeStyles(theme => ({
   }
 }));
 
-export { drawerStyles, headerStyles, neonButtonStyles };
+const imageGridStyles = makeStyles(theme => ({
+  imgWrap: {
+    overflow: 'hidden',
+    height: 0,
+    padding: '50% 0',
+    position: 'relative',
+    opacity: '0.8'
+  },
+  imgGrid: {
+    margin: '20px auto',
+    display: 'grid',
+    'grid-template-columns': '1fr 1fr 1fr',
+    'grid-gap': 40
+  },
+  image: {
+    minWidth: '100%',
+    minHeight: '100%',
+    maxWidth: '150%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    objectFit: 'contain'
+  },
+  modalBackdrop: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'rgba(0,0,0,0.5)'
+  },
+  modalBackdropImg: {
+    display: 'block',
+    maxWidth: '60%',
+    maxHeight: '80%',
+    margin: '60px auto',
+    boxShadow: '3px 5px 7px rgba(0,0,0,0.5)',
+    border: '3px solid white',
+  }
+}));
+
+export { drawerStyles, headerStyles, neonButtonStyles, imageGridStyles };

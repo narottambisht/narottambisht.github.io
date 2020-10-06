@@ -8,6 +8,17 @@ const aboutStyles = makeStyles(theme => ({
     paddingBottom: 30,
     marginLeft: 'auto',
     marginRight: 'auto'
+  },
+  aboutDetails: {
+    display: 'flex', 
+    justifyContent: 'space-between',
+  },
+  hobbyDiv: {
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'space-evenly',
+    paddingTop: 10,
+    paddingBottom: 10
   }
 }));
 
