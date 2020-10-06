@@ -26,6 +26,7 @@ const ImageGrid = ({ setSelectedImg, imageArray }) => {
 
 const ImageGridModal = ({ setSelectedImg, selectedImg }) => {
   const classes = imageGridStyles();
+  
   const handleClick = (e) => {
     if (e.target.classList.contains(classes.modalBackdrop)) {
       setSelectedImg(null);
