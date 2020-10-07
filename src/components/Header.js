@@ -8,6 +8,7 @@ import Home from '../containers/Home';
 import { headerStyles } from './style';
 import About from '../containers/About';
 import MyWork from '../containers/MyWork';
+import ContactMe from '../containers/ContactMe';
 import { firestoreDB } from '../utils/FirebaseConfig';
 import { RootContext } from '../context/RootContext';
 import { PortfolioInfoContext } from '../context/PortfolioInfoContext';
@@ -91,6 +92,7 @@ const Header = props => {
         <Route path={'/'} exact component={Home} />
         <Route path={'/about'} exact component={About} />
         <Route path={'/my-work'} exact component={MyWork} />
+        <Route path={'/contact-me'} exact component={ContactMe} />
       </Switch>
       <p style={{ textAlign: 'center' }}>
         © 2020 Narottam Bisht. All Rights Reserved

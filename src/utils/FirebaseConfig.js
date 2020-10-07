@@ -15,4 +15,7 @@ const firestoreDB = firebaseConfig.firestore();
 const auth = firebase.auth();
 const storageBucket = firebase.storage();
 
-export { firestoreDB, auth, storageBucket };
+// Returns the firebase server timestamp in whichever timezone you have it hosted.
+const timeStamp = firebase.firestore.FieldValue.serverTimestamp;
+
+export { firestoreDB, auth, storageBucket, timeStamp };

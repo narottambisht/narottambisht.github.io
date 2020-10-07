@@ -63,8 +63,8 @@ const About = () => {
             </Card>
           </Grid>
         </Grid>
-        <Grid item lg={4} sm={12}>
-          <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
+        <Grid item lg={4} sm={12} xs={12}>
+          <Grid item lg={12} sm={12} xs={12} style={{ marginBottom: 15 }}>
             <Card>
               <CardHeader title="DETAILS" />
               <Divider />
@@ -86,7 +86,7 @@ const About = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item lg={12} sm={12}>
+          <Grid item lg={12} sm={12} xs={12}>
             <Card>
               <CardHeader title="HOBBIES" />
               <Divider />
