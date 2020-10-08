@@ -95,7 +95,7 @@ const About = () => {
                   return (
                     <>
                       <div className={classes.hobbyDiv} key={index}>
-                        <img src={_hobby.hobby_logo_url} height={40} width={40} />
+                        <img src={_hobby.hobby_logo_url} height={40} width={40} alt="hobby-logow" />
                         <Typography variant="subtitle1">
                           {_hobby.hobby_name}
                         </Typography>

@@ -79,7 +79,7 @@ const MyWork = props => {
             <CardContent>
               <Grid container item lg={12} sm={12} spacing={3}>
                 <Grid item lg={4} sm={12}>
-                  <img src={selectedProject.project_logo} width={'100%'} />
+                  <img src={selectedProject.project_logo} width={'100%'} alt="project-logo" />
                 </Grid>
                 <Grid item lg={8} sm={12}>
                   <Typography variant="subtitle2" dangerouslySetInnerHTML={{ __html: selectedProject.description }} />
