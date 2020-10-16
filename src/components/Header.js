@@ -30,6 +30,8 @@ const Header = props => {
       autoplay: true,
       path: process.env.PUBLIC_URL + '/images/programming-man.json'
     });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const classes = headerStyles();

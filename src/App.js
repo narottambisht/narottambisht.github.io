@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import red from '@material-ui/core/colors/red';
-import { ThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import {createMuiTheme, responsiveFontSizes, ThemeProvider} from '@material-ui/core/styles';
 import Particles from 'react-particles-js';
 import Header from './components/Header';
-import { particleJsConfig } from './utils/config-util';
-import { RootContext } from './context/RootContext';
+import {particleJsConfig} from './utils/config-util';
+import {RootContext} from './context/RootContext';
 
 function App() {
   const [rootStore] = useContext(RootContext);
@@ -31,9 +31,9 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Particles style={{ position: 'fixed', zIndex: '-1' }}
-        params={particleJsConfig} />
-      <Header />
+      <Particles style={{position: 'fixed', zIndex: '-1'}}
+                 params={particleJsConfig}/>
+      <Header/>
     </ThemeProvider>
   );
 }

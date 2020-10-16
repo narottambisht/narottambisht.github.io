@@ -10,7 +10,7 @@ import { Brightness4Icon, Brightness7Icon, GetAppIcon } from '../utils/MaterialI
 
 const Drawer = props => {
   const [rootStore, setRootStore] = useContext(RootContext);
-  const [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext);
+  const [portfolioInfoStore] = useContext(PortfolioInfoContext);
   const classes = drawerStyles();
   const history = useHistory();
 

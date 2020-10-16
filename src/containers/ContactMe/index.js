@@ -1,26 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, Card, Divider, CardHeader, CardContent, TextField, Button } from '@material-ui/core';
+import lottie from 'lottie-web';
+import React, {useEffect, useState, useContext} from 'react';
+import {Button, Card, CardContent, CardHeader, Divider, Grid, TextField, Tooltip} from '@material-ui/core';
 
+import {
+  emailError,
+  emailFieldPlaceholder,
+  messageError,
+  messageFieldPlaceholder,
+  nameError,
+  nameFieldPlaceholder
+} from "../../utils/strings";
 import contactMeStyles from "./style";
-import { firestoreDB, timeStamp } from "../../utils/FirebaseConfig";
-import { nameError, emailError, messageError, nameFieldPlaceholder, emailFieldPlaceholder, messageFieldPlaceholder } from "../../utils/strings";
+import {SocialPartyContext} from "../../context/SocialPartyContext";
 import MSnackbar from '../../components/MSnackbar';
+import {firestoreDB, timeStamp} from "../../utils/FirebaseConfig";
 
 const ContactMe = () => {
-  const [contactMeForm, setContactMeForm] = useState({ name: '', email: '', message: '', nameError: '', emailError: '', messageError: '' });
-
   const [snackStatus, setSnackStatus] = useState(false);
+  const [contactMeForm, setContactMeForm] = useState({
+    name: '',
+    email: '',
+    message: '',
+    nameError: '',
+    emailError: '',
+    messageError: ''
+  });
+
+  const [socialParty, setSocialParty] = useContext(SocialPartyContext);
+
+  useEffect(() => {
+    firestoreDB.collection('social-party').onSnapshot(snapshot => {
+      setSocialParty(snapshot.docs.map(doc => doc.data()));
+    });
+
+    lottie.loadAnimation({
+      container: document.getElementById('facebook-lottie'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: process.env.PUBLIC_URL + '/images/facebook.json'
+    });
+
+    lottie.loadAnimation({
+      container: document.getElementById('instagram-lottie'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: process.env.PUBLIC_URL + '/images/instagram.json'
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const classes = contactMeStyles();
 
   const textInputHandler = (event) => {
-    const { name, value } = event.target;
-    setContactMeForm({ ...contactMeForm, [name]: value });
+    const {name, value} = event.target;
+    setContactMeForm({...contactMeForm, [name]: value});
   }
 
   const submitContactMeForm = () => {
-    setContactMeForm({ ...contactMeForm, nameError: '', emailError: '', messageError: '' });
-    const { name, email, message } = contactMeForm;
+    setContactMeForm({...contactMeForm, nameError: '', emailError: '', messageError: ''});
+    const {name, email, message} = contactMeForm;
     const nameRegex = /^[a-zA-Z '.-]*$/;
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const contactCollectionRef = firestoreDB.collection('contact-data');
@@ -43,17 +83,17 @@ const ContactMe = () => {
 
     if (isValidated) {
       const createdAt = timeStamp();
-      contactCollectionRef.add({ name, email, message, createdAt })
+      contactCollectionRef.add({name, email, message, createdAt})
         .then(docRef => {
           if (docRef.id)
-            setSnackStatus(true);
-          setContactMeForm({ name: '', email: '', message: '', nameError: '', emailError: '', messageError: '' });
+            handleOpenSnack();
+          setContactMeForm({name: '', email: '', message: '', nameError: '', emailError: '', messageError: ''});
         })
         .catch(err => {
           console.log('err', err);
         });
     } else {
-      setContactMeForm({ ...contactMeForm, nameError: _nameError, emailError: _emailError, messageError: _messageError });
+      setContactMeForm({...contactMeForm, nameError: _nameError, emailError: _emailError, messageError: _messageError});
     }
   }
 
@@ -74,48 +114,48 @@ const ContactMe = () => {
         severity="success"
       />
       <Grid item lg={8} sm={12} xs={12}>
-        <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
+        <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
           <Card>
-            <CardHeader title={'🕴️ CONTACT ME'} />
-            <Divider />
+            <CardHeader title={'🕴️ CONTACT ME'}/>
+            <Divider/>
             <CardContent>
-              <form noValidate autoComplete="off" style={{ display: 'grid' }}>
+              <form noValidate autoComplete="off" style={{display: 'grid'}}>
                 <TextField label="Name"
-                  name="name"
-                  size="small"
-                  margin="normal"
-                  variant="outlined"
-                  value={contactMeForm.name}
-                  onChange={textInputHandler}
-                  placeholder={nameFieldPlaceholder}
-                  helperText={contactMeForm.nameError}
-                  error={contactMeForm.nameError === '' ? false : true}
+                           name="name"
+                           size="small"
+                           margin="normal"
+                           variant="outlined"
+                           value={contactMeForm.name}
+                           onChange={textInputHandler}
+                           placeholder={nameFieldPlaceholder}
+                           helperText={contactMeForm.nameError}
+                           error={contactMeForm.nameError !== ''}
                 />
 
                 <TextField name="email"
-                  label="Email"
-                  size="small"
-                  margin="normal"
-                  variant="outlined"
-                  onChange={textInputHandler}
-                  value={contactMeForm.email}
-                  placeholder={emailFieldPlaceholder}
-                  helperText={contactMeForm.emailError}
-                  error={contactMeForm.emailError === '' ? false : true}
+                           label="Email"
+                           size="small"
+                           margin="normal"
+                           variant="outlined"
+                           onChange={textInputHandler}
+                           value={contactMeForm.email}
+                           placeholder={emailFieldPlaceholder}
+                           helperText={contactMeForm.emailError}
+                           error={contactMeForm.emailError !== ''}
                 />
 
                 <TextField name="message"
-                  rows={4}
-                  multiline
-                  size="small"
-                  label="Message"
-                  margin="normal"
-                  variant="outlined"
-                  onChange={textInputHandler}
-                  value={contactMeForm.message}
-                  placeholder={messageFieldPlaceholder}
-                  helperText={contactMeForm.messageError}
-                  error={contactMeForm.messageError === '' ? false : true}
+                           rows={4}
+                           multiline
+                           size="small"
+                           label="Message"
+                           margin="normal"
+                           variant="outlined"
+                           onChange={textInputHandler}
+                           value={contactMeForm.message}
+                           placeholder={messageFieldPlaceholder}
+                           helperText={contactMeForm.messageError}
+                           error={contactMeForm.messageError !== ''}
                 />
 
                 <Button variant="contained" onClick={submitContactMeForm}>Hit it up..!!</Button>
@@ -123,9 +163,35 @@ const ContactMe = () => {
             </CardContent>
           </Card>
         </Grid>
+        <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
+          <Card>
+            <CardHeader title={'🕴️ CONTACT ME'}/>
+            <Divider/>
+            <CardContent>
+              <Grid container>
+                <Grid item lg={6} md={6} sm={12} xs={12} onClick={() => console.log('facdbook clicked')}>
+                  <Tooltip title="Checkout my Github profile">
+                    <div id="facebook-lottie" className={classes.lottieAnimationDiv}/>
+                  </Tooltip>
+                </Grid>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <div id="instagram-lottie" className={classes.lottieAnimationDiv}/>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
       <Grid item lg={4} sm={12}>
+        <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
+          <Card>
+            <CardHeader title={'🕴️ HIRE ME'}/>
+            <Divider/>
+            <CardContent>
 
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
     </Grid>
   )

@@ -15,6 +15,7 @@ const About = () => {
     firestoreDB.collection('about-info').onSnapshot(snapshot => {
       snapshot.docs.map(doc => setAboutStore(doc.data()));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

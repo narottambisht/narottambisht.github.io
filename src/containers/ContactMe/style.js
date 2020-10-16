@@ -8,6 +8,12 @@ const contactMeStyles = makeStyles(theme => ({
     paddingBottom: 30,
     marginLeft: 'auto',
     marginRight: 'auto'
+  },
+  lottieAnimationDiv: {
+    width: 100,
+    height: 100,
+    marginRight: 'auto',
+    marginLeft: 'auto',
   }
 }));
 
