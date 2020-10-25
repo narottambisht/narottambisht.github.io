@@ -1,5 +1,5 @@
 import lottie from 'lottie-web';
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Card, CardContent, CardHeader, Divider, Grid, TextField, Tooltip} from '@material-ui/core';
 
 import {
@@ -30,26 +30,27 @@ const ContactMe = () => {
 
   useEffect(() => {
     firestoreDB.collection('social-party').onSnapshot(snapshot => {
-      setSocialParty(snapshot.docs.map(doc => doc.data()));
+      setSocialParty(snapshot.docs.map(doc => {
+        let social = doc.data();
+        social['id'] = doc.id;
+        return social;
+      }))
     });
 
-    lottie.loadAnimation({
-      container: document.getElementById('facebook-lottie'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: process.env.PUBLIC_URL + '/images/facebook.json'
-    });
-
-    lottie.loadAnimation({
-      container: document.getElementById('instagram-lottie'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: process.env.PUBLIC_URL + '/images/instagram.json'
-    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (socialParty.length > 0) {
+      socialParty.forEach(social => lottie.loadAnimation({
+        container: document.getElementById(`${social.id}-lottie`),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: `images/${social.id}.json`
+      }));
+    }
+  }, [socialParty])
 
   const classes = contactMeStyles();
 
@@ -120,42 +121,45 @@ const ContactMe = () => {
             <Divider/>
             <CardContent>
               <form noValidate autoComplete="off" style={{display: 'grid'}}>
-                <TextField label="Name"
-                           name="name"
-                           size="small"
-                           margin="normal"
-                           variant="outlined"
-                           value={contactMeForm.name}
-                           onChange={textInputHandler}
-                           placeholder={nameFieldPlaceholder}
-                           helperText={contactMeForm.nameError}
-                           error={contactMeForm.nameError !== ''}
+                <TextField
+                  label="Name"
+                  name="name"
+                  size="small"
+                  margin="normal"
+                  variant="outlined"
+                  value={contactMeForm.name}
+                  onChange={textInputHandler}
+                  placeholder={nameFieldPlaceholder}
+                  helperText={contactMeForm.nameError}
+                  error={contactMeForm.nameError !== ''}
                 />
 
-                <TextField name="email"
-                           label="Email"
-                           size="small"
-                           margin="normal"
-                           variant="outlined"
-                           onChange={textInputHandler}
-                           value={contactMeForm.email}
-                           placeholder={emailFieldPlaceholder}
-                           helperText={contactMeForm.emailError}
-                           error={contactMeForm.emailError !== ''}
+                <TextField
+                  name="email"
+                  label="Email"
+                  size="small"
+                  margin="normal"
+                  variant="outlined"
+                  onChange={textInputHandler}
+                  value={contactMeForm.email}
+                  placeholder={emailFieldPlaceholder}
+                  helperText={contactMeForm.emailError}
+                  error={contactMeForm.emailError !== ''}
                 />
 
-                <TextField name="message"
-                           rows={4}
-                           multiline
-                           size="small"
-                           label="Message"
-                           margin="normal"
-                           variant="outlined"
-                           onChange={textInputHandler}
-                           value={contactMeForm.message}
-                           placeholder={messageFieldPlaceholder}
-                           helperText={contactMeForm.messageError}
-                           error={contactMeForm.messageError !== ''}
+                <TextField
+                  name="message"
+                  rows={4}
+                  multiline
+                  size="small"
+                  label="Message"
+                  margin="normal"
+                  variant="outlined"
+                  onChange={textInputHandler}
+                  value={contactMeForm.message}
+                  placeholder={messageFieldPlaceholder}
+                  helperText={contactMeForm.messageError}
+                  error={contactMeForm.messageError !== ''}
                 />
 
                 <Button variant="contained" onClick={submitContactMeForm}>Hit it up..!!</Button>
@@ -169,12 +173,19 @@ const ContactMe = () => {
             <Divider/>
             <CardContent>
               <Grid container>
-                <Grid item lg={6} md={6} sm={12} xs={12} onClick={() => console.log('facdbook clicked')}>
-                  <Tooltip title="Checkout my Github profile">
-                    <div id="facebook-lottie" className={classes.lottieAnimationDiv}/>
-                  </Tooltip>
-                </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
+                {
+                  socialParty.map(social => {
+                    return(
+                      <Grid item lg={4} md={4} sm={12} xs={12} onClick={() => window.open(social.social_link, '_blank')}>
+                        <Tooltip title={social.tooltip}>
+                          <div id={`${social.id}-lottie`} className={classes.lottieAnimationDiv}/>
+                        </Tooltip>
+                      </Grid>
+                    )
+                  })
+                }
+
+                <Grid item lg={4} md={4} sm={12} xs={12}>
                   <div id="instagram-lottie" className={classes.lottieAnimationDiv}/>
                 </Grid>
               </Grid>
