@@ -1,6 +1,6 @@
-import React from 'react';
+import React        from 'react';
 import { Snackbar } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert     from '@material-ui/lab/Alert';
 
 const MSnackbar = ({ message, snackStatus, closeSnack, severity }) => {
 
@@ -20,7 +20,5 @@ const MSnackbar = ({ message, snackStatus, closeSnack, severity }) => {
     </Snackbar>
   )
 }
-
-
 
 export default MSnackbar;

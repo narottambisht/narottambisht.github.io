@@ -1,21 +1,19 @@
-import moment from 'moment';
-import {Rating} from '@material-ui/lab';
-import React, {useContext, useEffect} from 'react';
-import {Card, CardContent, CardHeader, Chip, Divider, Grid} from '@material-ui/core';
+import moment                                                 from 'moment';
+import { Rating }                                             from '@material-ui/lab';
+import React, { useContext, useEffect }                       from 'react';
+import { Card, CardContent, CardHeader, Chip, Divider, Grid } from '@material-ui/core';
 
-import homeStyles from './styles';
-import {firestoreDB} from '../../utils/FirebaseConfig';
-import {SkillsContext} from '../../context/SkillsContext';
-import {PortfolioInfoContext} from '../../context/PortfolioInfoContext';
-import {WorkExperienceContext} from '../../context/WorkExperienceContext';
-import {StarBorderIcon} from '../../utils/MaterialIcons';
-import {calcYearsOfExperience} from '../../utils/config-util';
+import homeStyles                                                     from './styles';
+import { firestoreDB }                                                from '../../utils/FirebaseConfig';
+import { SkillsContext, PortfolioInfoContext, WorkExperienceContext } from '../../context';
+import { StarBorderIcon }                                             from '../../utils/MaterialIcons';
+import { calcYearsOfExperience }                                      from '../../utils/config-util';
 
 const Home = (props) => {
-  const [skills, setSkills] = useContext(SkillsContext);
+  const [skills, setSkills]                 = useContext(SkillsContext);
   const [workExperience, setWorkExperience] = useContext(WorkExperienceContext);
-  const [portfolioInfoStore] = useContext(PortfolioInfoContext);
-  const classes = homeStyles();
+  const [portfolioInfoStore]                = useContext(PortfolioInfoContext);
+  const classes                             = homeStyles();
 
   useEffect(() => {
     firestoreDB.collection('skills').onSnapshot(snapshot => {
@@ -33,11 +31,11 @@ const Home = (props) => {
     <React.Fragment>
       <Grid container spacing={2} className={classes.containerGrid}>
         <Grid item lg={8} sm={12}>
-          <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
+          <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
             <Card>
               <CardHeader title={'🕴️ PROFILE'}/>
               <Divider/>
-              <CardContent style={{textAlign: 'justify'}}>
+              <CardContent style={{ textAlign: 'justify' }}>
                 <span>{`Hello! I am Narottam and I am a Software Engineer working on web applications and web infrastructure. I have been working professionally for ${calcYearsOfExperience(workExperience)} years but tinkering since a kid.`}</span>
                 <br/>
                 {portfolioInfoStore.profile && portfolioInfoStore.profile.length > 0 && portfolioInfoStore.profile.map((_profile, index) => {
@@ -55,14 +53,14 @@ const Home = (props) => {
             <Card>
               <CardHeader title={'👨‍💻 WORK EXPERIENCE'}/>
               <Divider/>
-              <CardContent style={{textAlign: 'justify'}}>
+              <CardContent style={{ textAlign: 'justify' }}>
                 {workExperience.length > 0 && workExperience.reverse().map((_workExperience, index) => {
                   return (
-                    <React.Fragment  key={index}>
+                    <React.Fragment key={index}>
                       <div>
                         <strong>
                           {_workExperience.designation} - &nbsp;
-                          <a style={{color: 'inherit', marginRight: 5}}
+                          <a style={{ color: 'inherit', marginRight: 5 }}
                              rel="noopener noreferrer"
                              target="_blank"
                              href={_workExperience.website}>
@@ -70,9 +68,9 @@ const Home = (props) => {
                           </a>
                           ({moment(_workExperience.start_date.toDate()).format('MMM YYYY')} - {_workExperience.end_date ? moment(_workExperience.end_date.toDate()).format('MMM YYYY') : "Current"})
                         </strong>
-                        <div dangerouslySetInnerHTML={{__html: _workExperience.job_description}}/>
+                        <div dangerouslySetInnerHTML={{ __html: _workExperience.job_description }}/>
                       </div>
-                      {index + 1 !== workExperience.length && <Divider style={{marginBottom: 10}}/>}
+                      {index + 1 !== workExperience.length && <Divider style={{ marginBottom: 10 }}/>}
                     </React.Fragment>
                   )
                 })}
@@ -81,21 +79,21 @@ const Home = (props) => {
           </Grid>
         </Grid>
         <Grid item lg={4} sm={12}>
-          <Grid item style={{marginBottom: 15}}>
+          <Grid item style={{ marginBottom: 15 }}>
             <Card>
               <CardHeader title={'🛠 SKILLS'}/>
               <Divider/>
-              <CardContent style={{textAlign: 'justify'}}>
+              <CardContent style={{ textAlign: 'justify' }}>
                 {portfolioInfoStore.skills_description}
               </CardContent>
               <Divider/>
-              <div style={{marginLeft: 10, marginRight: 10}}>
+              <div style={{ marginLeft: 10, marginRight: 10 }}>
                 {skills &&
                 skills.length > 0 &&
                 skills.map((skill, index) => {
                   return (
                     <React.Fragment key={index}>
-                      <p style={{textAlign: 'center'}}>{skill.skill_category}</p>
+                      <p style={{ textAlign: 'center' }}>{skill.skill_category}</p>
                       <div className={classes.skillsSection}>
                         {skill.skills_array.map((_skill, index) => {
                           return (
@@ -119,9 +117,10 @@ const Home = (props) => {
                 {portfolioInfoStore.languages && portfolioInfoStore.languages.map((_language, index) => {
                   return (
                     <React.Fragment key={index}>
-                      <div style={{display: 'grid'}}>
+                      <div style={{ display: 'grid' }}>
                         <span><strong>{_language.lang_name}:</strong>&nbsp;{_language.expertise_level}</span>
                         <Rating
+                          readOnly={true}
                           name="customized-empty"
                           defaultValue={_language.rating}
                           precision={0.5}
@@ -129,7 +128,7 @@ const Home = (props) => {
                         />
                       </div>
                       {index + 1 !== portfolioInfoStore.languages.length &&
-                      <Divider style={{marginTop: 10, marginBottom: 10}}/>}
+                      <Divider style={{ marginTop: 10, marginBottom: 10 }}/>}
                     </React.Fragment>
                   )
                 })}
