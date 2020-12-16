@@ -3,29 +3,76 @@ import { Rating }                                             from '@material-ui
 import React, { useContext, useEffect }                       from 'react';
 import { Card, CardContent, CardHeader, Chip, Divider, Grid } from '@material-ui/core';
 
-import homeStyles                                                     from './styles';
-import { firestoreDB }                                                from '../../utils/FirebaseConfig';
-import { SkillsContext, PortfolioInfoContext, WorkExperienceContext } from '../../context';
-import { StarBorderIcon }                                             from '../../utils/MaterialIcons';
-import { calcYearsOfExperience }                                      from '../../utils/config-util';
+import homeStyles                                                                       from './styles';
+import { firestoreDB }                                                                  from '../../utils/FirebaseConfig';
+import { SkillsContext, PortfolioInfoContext, WorkExperienceContext, TechStackContext } from '../../context';
+import { StarBorderIcon }                                                               from '../../utils/MaterialIcons';
+import { calcYearsOfExperience }                                                        from '../../utils/config-util';
+import { experience }                                                                   from '../../utils/strings';
 
 const Home = (props) => {
   const [skills, setSkills]                 = useContext(SkillsContext);
-  const [workExperience, setWorkExperience] = useContext(WorkExperienceContext);
   const [portfolioInfoStore]                = useContext(PortfolioInfoContext);
+  const [workExperience, setWorkExperience] = useContext(WorkExperienceContext);
+  const [techStack, setTechStack]           = useContext(TechStackContext);
   const classes                             = homeStyles();
 
   useEffect(() => {
-    firestoreDB.collection('skills').onSnapshot(snapshot => {
-      setSkills(snapshot.docs.map(doc => doc.data()));
-    });
-
     firestoreDB.collection('work_experience').onSnapshot(snapshot => {
       let workExperience = snapshot.docs.reverse();
       setWorkExperience(workExperience.map(doc => doc.data()));
     });
+
+    // Fetch tech stack collection to show in the skills section of the home page
+    firestoreDB.collection('tech_stack').onSnapshot(snapshot => {
+      let skillsMap = {};
+      snapshot.docs.forEach(doc => {
+        let tech = doc.data();
+        if (tech.tech_category) {
+          tech.tech_category.get().then(techCategory => {
+            let { category_name } = techCategory.data();
+            tech.techCategory     = techCategory.data();
+            if (!skillsMap.hasOwnProperty(category_name)) {
+              let techCat = [];
+              techCat.push(tech);
+              skillsMap[category_name] = techCat;
+            } else {
+              let techCat = skillsMap[category_name];
+              techCat.push(tech);
+              skillsMap[category_name] = techCat;
+            }
+          });
+        }
+      });
+
+      setTechStack(skillsMap);
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const TechStack = () => {
+    let techArray         = [];
+    let techStackKeyArray = Object.keys(techStack);
+    if (techStackKeyArray.length > 0) {
+      techArray = techStackKeyArray.map((skill, index) => {
+        return (
+          <React.Fragment key={index}>
+            <p style={{ textAlign: 'center' }}>{skill.skill_category}</p>
+            <div className={classes.skillsSection}>
+              {skill.skills_array.map((_skill, index) => {
+                return (
+                  <Chip key={index} color="primary" label={_skill.skill_name}/>
+                )
+              })}
+            </div>
+            {index + 1 !== skills.length && <Divider/>}
+          </React.Fragment>
+        )
+      });
+    }
+    return techArray;
+  }
 
   return (
     <React.Fragment>
@@ -36,7 +83,7 @@ const Home = (props) => {
               <CardHeader title={'🕴️ PROFILE'}/>
               <Divider/>
               <CardContent style={{ textAlign: 'justify' }}>
-                <span>{`Hello! I am Narottam and I am a Software Engineer working on web applications and web infrastructure. I have been working professionally for ${calcYearsOfExperience(workExperience)} years but tinkering since a kid.`}</span>
+                <span>{experience(calcYearsOfExperience(workExperience))}</span>
                 <br/>
                 {portfolioInfoStore.profile && portfolioInfoStore.profile.length > 0 && portfolioInfoStore.profile.map((_profile, index) => {
                   return (
@@ -88,24 +135,7 @@ const Home = (props) => {
               </CardContent>
               <Divider/>
               <div style={{ marginLeft: 10, marginRight: 10 }}>
-                {skills &&
-                skills.length > 0 &&
-                skills.map((skill, index) => {
-                  return (
-                    <React.Fragment key={index}>
-                      <p style={{ textAlign: 'center' }}>{skill.skill_category}</p>
-                      <div className={classes.skillsSection}>
-                        {skill.skills_array.map((_skill, index) => {
-                          return (
-                            <Chip key={index} color="primary" label={_skill.skill_name}/>
-                          )
-                        })}
-                      </div>
-                      {index + 1 !== skills.length && <Divider/>}
-                    </React.Fragment>
-                  )
-                })
-                }
+                <TechStack/>
               </div>
             </Card>
           </Grid>

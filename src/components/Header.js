@@ -13,6 +13,14 @@ import { firestoreDB }                                                          
 import { RootContext, PortfolioInfoContext, SocialPartyContext }                        from '../context';
 import { MenuIcon, FacebookIcon, TwitterIcon, GitHubIcon, LinkedInIcon, InstagramIcon } from '../utils/MaterialIcons';
 
+const socialIconsArray = [
+  <TwitterIcon/>,
+  <GitHubIcon/>,
+  <LinkedInIcon/>,
+  <InstagramIcon/>,
+  <FacebookIcon/>
+];
+
 const Header = props => {
   const [rootStore, setRootStore]                   = useContext(RootContext);
   const [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext);
@@ -21,6 +29,14 @@ const Header = props => {
   useEffect(() => {
     firestoreDB.collection('portfolio-info').onSnapshot(snapshot => {
       snapshot.docs.map(doc => setPortfolioInfoStore(doc.data()));
+    });
+
+    firestoreDB.collection('social-party').onSnapshot(snapshot => {
+      setSocialParty(snapshot.docs.map(doc => {
+        let social   = doc.data();
+        social['id'] = doc.id;
+        return social;
+      }))
     });
 
     lottie.loadAnimation({
@@ -58,7 +74,7 @@ const Header = props => {
           <Grid item lg={5} md={4} sm={12} className={classes.headerIntro}>
             <Typography variant="h4" className={classes.profileIntroName}>
               Hey 👋 Welcome
-              <span role="img" aria-label="welcome-emoji"> 🤓</span>,
+              <span role="img" aria-label="welcome-emoji"/>,
               <br/>
               I'm <strong>{portfolioInfoStore.name}</strong>
               <span role="img" aria-label="name-emoji">🕺🙇‍♂️</span>
@@ -67,31 +83,26 @@ const Header = props => {
               {portfolioInfoStore.achievements}
             </Typography>
             <div>
-              <Tooltip title="Connect with me on Facebook">
-                <IconButton edge={'start'}
-                            onClick={() => window.open(portfolioInfoStore.facebook_profile_link)}><FacebookIcon/></IconButton>
-              </Tooltip>
-              <Tooltip title="Follow me on my twitter handle">
-                <IconButton
-                  onClick={() => window.open(portfolioInfoStore.twitter_profile_link)}><TwitterIcon/></IconButton>
-              </Tooltip>
-              <Tooltip title="Checkout my Github profile">
-                <IconButton
-                  onClick={() => window.open(portfolioInfoStore.github_profile_link)}><GitHubIcon/></IconButton>
-              </Tooltip>
-              <Tooltip title="Connect with me on my LinkedIn page">
-                <IconButton
-                  onClick={() => window.open(portfolioInfoStore.linkedin_profile_link)}><LinkedInIcon/></IconButton>
-              </Tooltip>
-              <Tooltip title="Follow me on my Instagram profile">
-                <IconButton
-                  onClick={() => window.open(portfolioInfoStore.instagram_profile_link)}><InstagramIcon/></IconButton>
-              </Tooltip>
+              {
+                socialParty.length > 0 &&
+                socialParty.map((socialLink, index) => {
+                  const SocialIcon = socialIconsArray.filter(_socialIcon => _socialIcon.type.displayName.toLowerCase().includes(socialLink.id));
+                  return (
+                    <Tooltip key={index} title={socialLink.tooltip}>
+                      <IconButton
+                        edge={'start'}
+                        onClick={() => window.open(socialLink.social_link)}>
+                        {SocialIcon}
+                      </IconButton>
+                    </Tooltip>
+                  )
+                })
+              }
             </div>
           </Grid>
           <Grid item lg={3} md={3} sm={12}/>
           <Grid item lg={2} md={3} sm={12} className={classes.downloadCvGrid}>
-            <div className={classes.lottieAnimationDiv} id="lottie"></div>
+            <div className={classes.lottieAnimationDiv} id="lottie"/>
           </Grid>
         </Grid>
         <Drawer {...props} />

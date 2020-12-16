@@ -107,10 +107,11 @@ const MyWork = props => {
                     selectedProject.tech.length > 0 &&
                     selectedProject.tech.map((_projTech, index) => {
                       return (
-                        <Grid key={index} item lg={3}
-                              md={3} sm={6} xs={6}
-                              style={{ display: 'flex' }}
-                              onClick={() => console.log("p", _projTech.tech_name)}>
+                        <Grid
+                          key={index} item lg={3}
+                          md={3} sm={6} xs={6}
+                          style={{ display: 'flex' }}
+                          onClick={() => console.log("p", _projTech.tech_name)}>
 
                           <Avatar
                             alt="Cindy Baker"

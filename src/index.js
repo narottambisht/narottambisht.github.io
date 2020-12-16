@@ -10,24 +10,27 @@ import {
   PortfolioInfoContextProvider,
   WorkExperienceContextProvider,
   AboutContextProvider,
-  SocialPartyContextProvider
+  SocialPartyContextProvider,
+  TechStackContextProvider
 }                     from './context';
 
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
       <RootContextProvider>
-        <PortfolioInfoContextProvider>
-          <SkillsContextProvider>
-            <WorkExperienceContextProvider>
-              <AboutContextProvider>
-                <SocialPartyContextProvider>
-                  <App/>
-                </SocialPartyContextProvider>
-              </AboutContextProvider>
-            </WorkExperienceContextProvider>
-          </SkillsContextProvider>
-        </PortfolioInfoContextProvider>
+        <TechStackContextProvider>
+          <PortfolioInfoContextProvider>
+            <SkillsContextProvider>
+              <WorkExperienceContextProvider>
+                <AboutContextProvider>
+                  <SocialPartyContextProvider>
+                    <App/>
+                  </SocialPartyContextProvider>
+                </AboutContextProvider>
+              </WorkExperienceContextProvider>
+            </SkillsContextProvider>
+          </PortfolioInfoContextProvider>
+        </TechStackContextProvider>
       </RootContextProvider>
     </HashRouter>
   </React.StrictMode>,
