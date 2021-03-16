@@ -1,16 +1,16 @@
-import React, {useContext} from 'react';
-import red from '@material-ui/core/colors/red';
-import {createMuiTheme, responsiveFontSizes, ThemeProvider} from '@material-ui/core/styles';
-import Particles from 'react-particles-js';
-import Header from './components/Header';
-import {particleJsConfig} from './utils/config-util';
-import {RootContext} from './context/RootContext';
+import React, { useContext }                                  from "react";
+import red                                                    from "@material-ui/core/colors/red";
+import { createMuiTheme, responsiveFontSizes, ThemeProvider } from "@material-ui/core/styles";
+import Particles                                              from "react-particles-js";
+import Header                                                 from "./components/Header";
+import { particleJsConfig }                                   from "./utils/config-util";
+import { RootContext }                                        from "./context/RootContext";
 
 function App() {
   const [rootStore] = useContext(RootContext);
 
   const theme = responsiveFontSizes(createMuiTheme({
-    overrides: {
+    overrides : {
       MuiCard: {
         root: {
           borderRadius: 20
@@ -18,21 +18,23 @@ function App() {
       }
     },
     typography: {
-      fontFamily: 'Montserrat'
+      fontFamily: "CircularStd-Book"
     },
-    palette: {
-      type: rootStore.theme,
-      primary: red,
+    palette   : {
+      type      : rootStore.theme,
+      primary   : red,
       background: {
-        default: rootStore.theme === 'light' ? '#DAE3E7' : '#303030'
+        default: rootStore.theme === "light" ? "#DAE3E7" : "#303030"
       }
     }
   }));
 
   return (
     <ThemeProvider theme={theme}>
-      <Particles style={{position: 'fixed', zIndex: '-1'}}
-                 params={particleJsConfig}/>
+      <Particles
+        style={{position: "fixed", zIndex: "-1"}}
+        params={particleJsConfig}
+      />
       <Header/>
     </ThemeProvider>
   );
