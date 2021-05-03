@@ -1,22 +1,44 @@
-import lottie                                                            from "lottie-web";
-import { Route, Switch }                                                 from "react-router-dom";
-import React, { useContext, useEffect }                                  from "react";
-import { Container, CssBaseline, Grid, IconButton, Tooltip, Typography } from "@material-ui/core";
-
-import Drawer                                                                           from "./Drawer";
-import Home                                                                             from "../containers/Home";
-import { headerStyles }                                                                 from "./style";
-import About                                                                            from "../containers/About";
-import MyWork                                                                           from "../containers/MyWork";
-import ContactMe                                                                        from "../containers/ContactMe";
-import { firestoreDB }                                                                  from "../utils/FirebaseConfig";
-import { RootContext }                                                                  from "../context/RootContext";
-import { PortfolioInfoContext }                                                         from "../context/PortfolioInfoContext";
-import { FacebookIcon, GitHubIcon, InstagramIcon, LinkedInIcon, MenuIcon, TwitterIcon } from "../utils/MaterialIcons";
+import lottie                   from "lottie-web";
+import {
+  Route,
+  Switch
+}                               from "react-router-dom";
+import React, {
+  useContext,
+  useEffect
+}                               from "react";
+import {
+  Container,
+  CssBaseline,
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography
+}                               from "@material-ui/core";
+import Drawer                   from "./Drawer";
+import Home                     from "../containers/Home";
+import { headerStyles }         from "./style";
+import About                    from "../containers/About";
+import MyWork                   from "../containers/MyWork";
+import ContactMe                from "../containers/ContactMe";
+import { firestoreDB }          from "../utils/FirebaseConfig";
+import { RootContext }          from "../context/RootContext";
+import { PortfolioInfoContext } from "../context/PortfolioInfoContext";
+import {
+  FacebookIcon,
+  GitHubIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  MenuIcon,
+  TwitterIcon
+}                               from "../utils/MaterialIcons";
+import { RemoteConfigContext }  from "../context/RemoteConfigContext";
+import moment                   from "moment";
 
 const Header = props => {
-  const [rootStore, setRootStore] = useContext(RootContext);
-  const [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext);
+  const [rootStore, setRootStore]                   = useContext(RootContext),
+        [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext),
+        [remoteConfigStore, setRemoteConfigStore]   = React.useContext(RemoteConfigContext);
 
   useEffect(() => {
     firestoreDB.collection("portfolio-info").onSnapshot(snapshot => {
@@ -55,7 +77,7 @@ const Header = props => {
             <img
               src={process.env.PUBLIC_URL + "/images/profile.jpg"}
               className={classes.profileImage}
-              alt="Narottam Singh Bisht"
+              alt={remoteConfigStore.name}
             />
           </Grid>
           <Grid item lg={5} md={4} sm={12} className={classes.headerIntro}>
@@ -63,37 +85,47 @@ const Header = props => {
               Hey 👋 Welcome
               <span role="img" aria-label="welcome-emoji"> 🤓</span>,
               <br/>
-              I'm <strong>{portfolioInfoStore.name}</strong>
+              I'm <strong>{remoteConfigStore.name}</strong>
               <span role="img" aria-label="name-emoji">🕺🙇‍♂️</span>
             </Typography>
+
             <Typography variant="h6" className={classes.profileIntroSpacing}>
-              {portfolioInfoStore.achievements}
+              {remoteConfigStore.achievements}
             </Typography>
+
             <div>
               <Tooltip title="Connect with me on Facebook">
                 <IconButton
                   edge={"start"}
-                  onClick={() => window.open(portfolioInfoStore.facebook_profile_link)}>
+                  onClick={() => window.open(remoteConfigStore.social_links.facebook)}>
                   <FacebookIcon/>
                 </IconButton>
               </Tooltip>
+
               <Tooltip title="Follow me on my twitter handle">
                 <IconButton
-                  onClick={() => window.open(portfolioInfoStore.twitter_profile_link)}><TwitterIcon/></IconButton>
+                  onClick={() => window.open(remoteConfigStore.social_links.twitter)}>
+                  <TwitterIcon/>
+                </IconButton>
               </Tooltip>
+
               <Tooltip title="Checkout my Github profile">
                 <IconButton
-                  onClick={() => window.open(portfolioInfoStore.github_profile_link)}><GitHubIcon/></IconButton>
+                  onClick={() => window.open(remoteConfigStore.social_links.github)}>
+                  <GitHubIcon/>
+                </IconButton>
               </Tooltip>
+
               <Tooltip title="Connect with me on my LinkedIn page">
                 <IconButton
-                  onClick={() => window.open(portfolioInfoStore.linkedin_profile_link)}>
+                  onClick={() => window.open(remoteConfigStore.social_links.linkedin)}>
                   <LinkedInIcon/>
                 </IconButton>
               </Tooltip>
+
               <Tooltip title="Follow me on my Instagram profile">
                 <IconButton
-                  onClick={() => window.open(portfolioInfoStore.instagram_profile_link)}>
+                  onClick={() => window.open(remoteConfigStore.social_links.instagram)}>
                   <InstagramIcon/>
                 </IconButton>
               </Tooltip>
@@ -113,7 +145,7 @@ const Header = props => {
         <Route path={"/contact-me"} exact component={ContactMe}/>
       </Switch>
       <p style={{textAlign: "center"}}>
-        © 2020 Narottam Bisht. All Rights Reserved
+        © {moment().format("YYYY")} {remoteConfigStore.name}. All Rights Reserved
       </p>
     </React.Fragment>
   )
