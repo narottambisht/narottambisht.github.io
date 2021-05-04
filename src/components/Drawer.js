@@ -1,12 +1,24 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Divider, IconButton, SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, Button } from '@material-ui/core';
-
-import { drawerStyles } from './style';
-import { RootContext } from '../context/RootContext';
-import { PortfolioInfoContext } from '../context/PortfolioInfoContext';
-import { Brightness4Icon, Brightness7Icon, GetAppIcon } from '../utils/MaterialIcons';
+import React, { useContext }    from "react";
+import { useHistory }           from "react-router-dom";
+import ChevronRightIcon         from "@material-ui/icons/ChevronRight";
+import {
+  Button,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  SwipeableDrawer
+}                               from "@material-ui/core";
+import { drawerStyles }         from "./style";
+import { RootContext }          from "../context/RootContext";
+import { PortfolioInfoContext } from "../context/PortfolioInfoContext";
+import {
+  Brightness4Icon,
+  Brightness7Icon,
+  GetAppIcon
+}                               from "../utils/MaterialIcons";
 
 const Drawer = props => {
   const [rootStore, setRootStore] = useContext(RootContext);
@@ -14,70 +26,71 @@ const Drawer = props => {
   const classes = drawerStyles();
   const history = useHistory();
 
+
   const routes = [
     {
-      routeLabel: 'HOME',
-      routePath: '/',
-      routeIcon: '🏠'
+      routeLabel: "HOME",
+      routePath : "/",
+      routeIcon : "🏠"
     },
     {
-      routeLabel: '$whoami',
-      routePath: '/about',
-      routeIcon: '💁'
+      routeLabel: "$whoami",
+      routePath : "/about",
+      routeIcon : "💁"
     },
     {
-      routeLabel: 'MY WORK',
-      routePath: '/my-work',
-      routeIcon: '👨‍💻'
+      routeLabel: "MY WORK",
+      routePath : "/my-work",
+      routeIcon : "👨‍💻"
     },
     {
-      routeLabel: 'CONTACT ME',
-      routePath: '/contact-me',
-      routeIcon: '📇'
+      routeLabel: "CONTACT ME",
+      routePath : "/contact-me",
+      routeIcon : "📇"
     }
   ];
 
   const routeChangeHandler = (route) => {
-    setRootStore({ ...rootStore, drawerOpen: false });
+    setRootStore({...rootStore, drawerOpen: false});
     history.push(route.routePath);
   }
 
   const downloadResume = async () => {
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = portfolioInfoStore.resume_link;
-    link.setAttribute('download', 'Resume.pdf');
-    link.setAttribute('target', '_blank');
+    link.setAttribute("download", "Resume.pdf");
+    link.setAttribute("target", "_blank");
     document.body.appendChild(link);
     link.click();
   }
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
-      <Divider />
+      <div className={classes.toolbar}/>
+      <Divider/>
       <List>
         {routes.map((route, index) => (
           <ListItem button key={index} onClick={() => routeChangeHandler(route)}>
             <ListItemIcon>{route.routeIcon}</ListItemIcon>
-            <ListItemText primary={route.routeLabel} />
+            <ListItemText primary={route.routeLabel}/>
           </ListItem>
         ))}
-        <Divider />
+        <Divider/>
         <ListItem>
-          <ListItemText primary={'THEME'} />
+          <ListItemText primary={"THEME"}/>
           <ListItemIcon>
-            {rootStore.theme === 'light' ?
-              <IconButton onClick={() => setRootStore({ ...rootStore, theme: 'dark' })}><Brightness4Icon /></IconButton> :
-              <IconButton onClick={() => setRootStore({ ...rootStore, theme: 'light' })}><Brightness7Icon /></IconButton>
+            {rootStore.theme === "light" ?
+              <IconButton onClick={() => setRootStore({...rootStore, theme: "dark"})}><Brightness4Icon/></IconButton> :
+              <IconButton onClick={() => setRootStore({...rootStore, theme: "light"})}><Brightness7Icon/></IconButton>
             }
           </ListItemIcon>
         </ListItem>
         <ListItem>
           <Button onClick={downloadResume}
-            style={{ width: '100%' }}
-            variant="contained"
-            color="primary"
-            startIcon={<GetAppIcon />}>
+                  style={{width: "100%"}}
+                  variant="contained"
+                  color="primary"
+                  startIcon={<GetAppIcon/>}>
             Download CV
           </Button>
         </ListItem>
@@ -95,15 +108,15 @@ const Drawer = props => {
       classes={{
         paper: classes.drawer,
       }}
-      onClose={() => setRootStore({ ...rootStore, drawerOpen: false })}
-      onOpen={() => setRootStore({ ...rootStore, drawerOpen: true })}
+      onClose={() => setRootStore({...rootStore, drawerOpen: false})}
+      onOpen={() => setRootStore({...rootStore, drawerOpen: true})}
     >
       <div className={classes.drawerHeader}>
-        <IconButton onClick={() => setRootStore({ ...rootStore, drawerOpen: false })}>
-          <ChevronRightIcon />
+        <IconButton onClick={() => setRootStore({...rootStore, drawerOpen: false})}>
+          <ChevronRightIcon/>
         </IconButton>
       </div>
-      <Divider />
+      <Divider/>
       {drawer}
 
     </SwipeableDrawer>

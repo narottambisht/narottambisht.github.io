@@ -52,7 +52,6 @@ const fetchAndActivateRemoteConfig = (setRemoteConfigStore) => {
       setRemoteConfigStore(remoteConfigParsed);
     })
     .catch(err => {
-      console.log("err", err);
       alert("Failed to fetch and activate remote config values!!");
     });
 }
