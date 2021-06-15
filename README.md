@@ -1,4 +1,22 @@
+<div align="center">
+  <img alt="Logo" src="https://raw.githubusercontent.com/narottambisht/narottambisht.github.io/main/src/images/logo.png" width="100" />
+</div>
+<h1 align="center">
+    narottambisht.github.io
+</h1>
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## 🚨 Forking this repo (please read!)
+
+Many people have contacted me asking me if they can use this code for their own website, and the answer to that question
+is usually **yes, with attribution**.
+
+I value keeping my site open source, but as you all know, _**plagiarism is bad**_. It's always disheartening whenever I
+find that someone has copied my site without giving me credit. I spent a non-trivial amount of effort building and
+designing this iteration of my website, and I am proud of it! All I ask of you all is to not claim this effort as your
+own.
+
+Please also note that I did not build this site with the intention of it being a starter theme.
 
 ## Available Scripts
 
@@ -15,7 +33,8 @@ You will also see any lint errors in the console.
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more
+information.
 
 ### `npm run build`
 
@@ -31,15 +50,21 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will
+remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right
+into your project so you have full control over them. All of the commands except `eject` will still work, but they will
+point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you
+shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t
+customize it when you are ready for it.
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can learn more in
+the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
@@ -65,4 +90,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This section has moved
+here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
