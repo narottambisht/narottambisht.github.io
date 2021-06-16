@@ -15,7 +15,6 @@ import {
 import homeStyles                from "./styles";
 import { firestoreDB }           from "../../utils/FirebaseConfig";
 import { SkillsContext }         from "../../context/SkillsContext";
-import { PortfolioInfoContext }  from "../../context/PortfolioInfoContext";
 import { WorkExperienceContext } from "../../context/WorkExperienceContext";
 import { StarBorderIcon }        from "../../utils/MaterialIcons";
 import { calcYearsOfExperience } from "../../utils/config-util";
@@ -23,11 +22,10 @@ import { RemoteConfigContext }   from "../../context/RemoteConfigContext";
 
 
 const Home = (props) => {
-  const [skills, setSkills]                       = useContext(SkillsContext),
-        [workExperience, setWorkExperience]       = useContext(WorkExperienceContext),
-        [portfolioInfoStore]                      = useContext(PortfolioInfoContext),
-        [remoteConfigStore, setRemoteConfigStore] = useContext(RemoteConfigContext),
-        classes                                   = homeStyles();
+  const [skills, setSkills]                 = useContext(SkillsContext),
+        [workExperience, setWorkExperience] = useContext(WorkExperienceContext),
+        [remoteConfigStore]                 = useContext(RemoteConfigContext),
+        classes                             = homeStyles();
 
   useEffect(() => {
     firestoreDB.collection("skills").onSnapshot(snapshot => {

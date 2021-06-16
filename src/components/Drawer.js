@@ -1,6 +1,13 @@
-import React, { useContext }    from "react";
-import { useHistory }           from "react-router-dom";
-import ChevronRightIcon         from "@material-ui/icons/ChevronRight";
+import React, {
+  useContext,
+  useEffect,
+  useState
+}                        from "react";
+import { useHistory }    from "react-router-dom";
+import ChevronRightIcon  from "@material-ui/icons/ChevronRight";
+import { drawerStyles }  from "./style";
+import { RootContext }   from "../context/RootContext";
+import { storageBucket } from "../utils/FirebaseConfig";
 import {
   Button,
   Divider,
@@ -10,22 +17,28 @@ import {
   ListItemIcon,
   ListItemText,
   SwipeableDrawer
-}                               from "@material-ui/core";
-import { drawerStyles }         from "./style";
-import { RootContext }          from "../context/RootContext";
-import { PortfolioInfoContext } from "../context/PortfolioInfoContext";
+}                        from "@material-ui/core";
 import {
   Brightness4Icon,
   Brightness7Icon,
   GetAppIcon
-}                               from "../utils/MaterialIcons";
+}                        from "../utils/MaterialIcons";
 
 const Drawer = props => {
   const [rootStore, setRootStore] = useContext(RootContext);
-  const [portfolioInfoStore] = useContext(PortfolioInfoContext);
+  const [resumeLink, setResumeLink] = useState("");
   const classes = drawerStyles();
   const history = useHistory();
 
+  /**
+   * Effect hook to get a download URL from firebase storage bucket so this
+   * url can be used to view/download the resume from dashboard drawer.
+   */
+  useEffect(async () => {
+    let pathRef = storageBucket.ref("miscellaneous_assets/Resume.pdf");
+    let downloadUrl = await pathRef.getDownloadURL()
+    setResumeLink(downloadUrl);
+  }, []);
 
   const routes = [
     {
@@ -57,7 +70,7 @@ const Drawer = props => {
 
   const downloadResume = async () => {
     const link = document.createElement("a");
-    link.href = portfolioInfoStore.resume_link;
+    link.href = resumeLink;
     link.setAttribute("download", "Resume.pdf");
     link.setAttribute("target", "_blank");
     document.body.appendChild(link);
@@ -69,28 +82,37 @@ const Drawer = props => {
       <div className={classes.toolbar}/>
       <Divider/>
       <List>
-        {routes.map((route, index) => (
-          <ListItem button key={index} onClick={() => routeChangeHandler(route)}>
-            <ListItemIcon>{route.routeIcon}</ListItemIcon>
-            <ListItemText primary={route.routeLabel}/>
-          </ListItem>
-        ))}
+        {
+          routes.map((route, index) => (
+            <ListItem button key={index} onClick={() => routeChangeHandler(route)}>
+              <ListItemIcon>{route.routeIcon}</ListItemIcon>
+              <ListItemText primary={route.routeLabel}/>
+            </ListItem>
+          ))
+        }
         <Divider/>
         <ListItem>
           <ListItemText primary={"THEME"}/>
           <ListItemIcon>
-            {rootStore.theme === "light" ?
-              <IconButton onClick={() => setRootStore({...rootStore, theme: "dark"})}><Brightness4Icon/></IconButton> :
-              <IconButton onClick={() => setRootStore({...rootStore, theme: "light"})}><Brightness7Icon/></IconButton>
+            {
+              rootStore.theme === "light" ?
+                <IconButton onClick={() => setRootStore({...rootStore, theme: "dark"})}>
+                  <Brightness4Icon/>
+                </IconButton> :
+                <IconButton onClick={() => setRootStore({...rootStore, theme: "light"})}>
+                  <Brightness7Icon/>
+                </IconButton>
             }
           </ListItemIcon>
         </ListItem>
         <ListItem>
-          <Button onClick={downloadResume}
-                  style={{width: "100%"}}
-                  variant="contained"
-                  color="primary"
-                  startIcon={<GetAppIcon/>}>
+          <Button
+            onClick={downloadResume}
+            style={{width: "100%"}}
+            variant="contained"
+            color="primary"
+            startIcon={<GetAppIcon/>}
+          >
             Download CV
           </Button>
         </ListItem>
@@ -118,7 +140,6 @@ const Drawer = props => {
       </div>
       <Divider/>
       {drawer}
-
     </SwipeableDrawer>
   )
 }
