@@ -3,16 +3,23 @@ import { Route, Switch }                                                 from "r
 import React, { useContext, useEffect }                                  from "react";
 import { Container, CssBaseline, Grid, IconButton, Tooltip, Typography } from "@material-ui/core";
 
-import Drawer                                                                           from "./Drawer";
-import Home                                                                             from "../containers/Home";
-import { headerStyles }                                                                 from "./style";
-import About                                                                            from "../containers/About";
-import MyWork                                                                           from "../containers/MyWork";
-import ContactMe                                                                        from "../containers/ContactMe";
-import { firestoreDB }                                                                  from "../utils/FirebaseConfig";
-import { RootContext }                                                                  from "../context/RootContext";
-import { PortfolioInfoContext }                                                         from "../context/PortfolioInfoContext";
-import { FacebookIcon, GitHubIcon, InstagramIcon, LinkedInIcon, MenuIcon, TwitterIcon } from "../utils/MaterialIcons";
+import Drawer                   from "./Drawer";
+import Home                     from "../containers/Home";
+import { headerStyles }         from "./style";
+import About                    from "../containers/About";
+import MyWork                   from "../containers/MyWork";
+import ContactMe                from "../containers/ContactMe";
+import { firestoreDB }          from "../utils/FirebaseConfig";
+import { RootContext }          from "../context/RootContext";
+import { PortfolioInfoContext } from "../context/PortfolioInfoContext";
+import {
+  FacebookIcon,
+  GitHubIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  MenuIcon,
+  TwitterIcon,
+}                               from "../utils/MaterialIcons";
 
 const Header = props => {
   const [rootStore, setRootStore] = useContext(RootContext);
@@ -28,7 +35,7 @@ const Header = props => {
       renderer : "svg",
       loop     : true,
       autoplay : true,
-      path     : process.env.PUBLIC_URL + "/images/programming-man.json"
+      path     : process.env.PUBLIC_URL + "/images/programming-man.json",
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,7 +51,7 @@ const Header = props => {
             color="inherit"
             aria-label="open drawer"
             edge="end"
-            onClick={() => setRootStore({...rootStore, drawerOpen: true})}
+            onClick={() => setRootStore({ ...rootStore, drawerOpen: true })}
           >
             <MenuIcon/>
           </IconButton>
@@ -79,7 +86,8 @@ const Header = props => {
               </Tooltip>
               <Tooltip title="Follow me on my twitter handle">
                 <IconButton
-                  onClick={() => window.open(portfolioInfoStore.twitter_profile_link)}><TwitterIcon/></IconButton>
+                  onClick={() => window.open(
+                    portfolioInfoStore.twitter_profile_link)}><TwitterIcon/></IconButton>
               </Tooltip>
               <Tooltip title="Checkout my Github profile">
                 <IconButton
@@ -112,7 +120,7 @@ const Header = props => {
         <Route path={"/my-work"} exact component={MyWork}/>
         <Route path={"/contact-me"} exact component={ContactMe}/>
       </Switch>
-      <p style={{textAlign: "center"}}>
+      <p style={{ textAlign: "center" }}>
         © 2020 Narottam Bisht. All Rights Reserved
       </p>
     </React.Fragment>
