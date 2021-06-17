@@ -1,7 +1,6 @@
-import lottie from 'lottie-web';
-import React, {useContext, useEffect, useState} from 'react';
-import {Button, Card, CardContent, CardHeader, Divider, Grid, TextField, Tooltip} from '@material-ui/core';
-
+import lottie                                                                       from "lottie-web";
+import React, { useContext, useEffect, useState }                                   from "react";
+import { Button, Card, CardContent, CardHeader, Divider, Grid, TextField, Tooltip } from "@material-ui/core";
 import {
   emailError,
   emailFieldPlaceholder,
@@ -9,30 +8,30 @@ import {
   messageFieldPlaceholder,
   nameError,
   nameFieldPlaceholder
-} from "../../utils/strings";
-import contactMeStyles from "./style";
-import {SocialPartyContext} from "../../context/SocialPartyContext";
-import MSnackbar from '../../components/MSnackbar';
-import {firestoreDB, timeStamp} from "../../utils/FirebaseConfig";
+}                                                                                   from "../../utils/strings";
+import contactMeStyles                                                              from "./style";
+import { SocialPartyContext }                                                       from "../../context/SocialPartyContext";
+import MSnackbar                                                                    from "../../components/MSnackbar";
+import { firestoreDB, timeStamp }                                                   from "../../utils/FirebaseConfig";
 
 const ContactMe = () => {
   const [snackStatus, setSnackStatus] = useState(false);
   const [contactMeForm, setContactMeForm] = useState({
-    name: '',
-    email: '',
-    message: '',
-    nameError: '',
-    emailError: '',
-    messageError: ''
+    name        : "",
+    email       : "",
+    message     : "",
+    nameError   : "",
+    emailError  : "",
+    messageError: ""
   });
 
   const [socialParty, setSocialParty] = useContext(SocialPartyContext);
 
   useEffect(() => {
-    firestoreDB.collection('social-party').onSnapshot(snapshot => {
+    firestoreDB.collection("social-party").onSnapshot(snapshot => {
       setSocialParty(snapshot.docs.map(doc => {
         let social = doc.data();
-        social['id'] = doc.id;
+        social["id"] = doc.id;
         return social;
       }))
     });
@@ -44,10 +43,10 @@ const ContactMe = () => {
     if (socialParty.length > 0) {
       socialParty.forEach(social => lottie.loadAnimation({
         container: document.getElementById(`${social.id}-lottie`),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: `images/${social.id}.json`
+        renderer : "svg",
+        loop     : true,
+        autoplay : true,
+        path     : `images/${social.id}.json`
       }));
     }
   }, [socialParty])
@@ -60,14 +59,14 @@ const ContactMe = () => {
   }
 
   const submitContactMeForm = () => {
-    setContactMeForm({...contactMeForm, nameError: '', emailError: '', messageError: ''});
+    setContactMeForm({...contactMeForm, nameError: "", emailError: "", messageError: ""});
     const {name, email, message} = contactMeForm;
     const nameRegex = /^[a-zA-Z '.-]*$/;
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const contactCollectionRef = firestoreDB.collection('contact-data');
-    let isValidated = true, _nameError = '', _emailError = '', _messageError = '';
+    const contactCollectionRef = firestoreDB.collection("contact-data");
+    let isValidated = true, _nameError = "", _emailError = "", _messageError = "";
 
-    if (!nameRegex.test(name) || name === '') {
+    if (!nameRegex.test(name) || name === "") {
       isValidated = false;
       _nameError = nameError;
     }
@@ -77,7 +76,7 @@ const ContactMe = () => {
       _emailError = emailError;
     }
 
-    if (message === '') {
+    if (message === "") {
       isValidated = false;
       _messageError = messageError;
     }
@@ -88,10 +87,10 @@ const ContactMe = () => {
         .then(docRef => {
           if (docRef.id)
             handleOpenSnack();
-          setContactMeForm({name: '', email: '', message: '', nameError: '', emailError: '', messageError: ''});
+          setContactMeForm({name: "", email: "", message: "", nameError: "", emailError: "", messageError: ""});
         })
         .catch(err => {
-          console.log('err', err);
+          console.log("err", err);
         });
     } else {
       setContactMeForm({...contactMeForm, nameError: _nameError, emailError: _emailError, messageError: _messageError});
@@ -109,7 +108,7 @@ const ContactMe = () => {
   return (
     <Grid container spacing={2} className={classes.containerGrid}>
       <MSnackbar
-        message={'YOUR RESPONSE HAS BEEN SUBMITTED SUCCESSFULLY !'}
+        message={"YOUR RESPONSE HAS BEEN SUBMITTED SUCCESSFULLY !"}
         snackStatus={snackStatus}
         closeSnack={handleCloseSnack}
         severity="success"
@@ -117,10 +116,10 @@ const ContactMe = () => {
       <Grid item lg={8} sm={12} xs={12}>
         <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
           <Card>
-            <CardHeader title={'🕴️ CONTACT ME'}/>
+            <CardHeader title={"🕴️ CONTACT ME"}/>
             <Divider/>
             <CardContent>
-              <form noValidate autoComplete="off" style={{display: 'grid'}}>
+              <form noValidate autoComplete="off" style={{display: "grid"}}>
                 <TextField
                   label="Name"
                   name="name"
@@ -131,7 +130,7 @@ const ContactMe = () => {
                   onChange={textInputHandler}
                   placeholder={nameFieldPlaceholder}
                   helperText={contactMeForm.nameError}
-                  error={contactMeForm.nameError !== ''}
+                  error={contactMeForm.nameError !== ""}
                 />
 
                 <TextField
@@ -144,7 +143,7 @@ const ContactMe = () => {
                   value={contactMeForm.email}
                   placeholder={emailFieldPlaceholder}
                   helperText={contactMeForm.emailError}
-                  error={contactMeForm.emailError !== ''}
+                  error={contactMeForm.emailError !== ""}
                 />
 
                 <TextField
@@ -159,7 +158,7 @@ const ContactMe = () => {
                   value={contactMeForm.message}
                   placeholder={messageFieldPlaceholder}
                   helperText={contactMeForm.messageError}
-                  error={contactMeForm.messageError !== ''}
+                  error={contactMeForm.messageError !== ""}
                 />
 
                 <Button variant="contained" onClick={submitContactMeForm}>Hit it up..!!</Button>
@@ -169,14 +168,15 @@ const ContactMe = () => {
         </Grid>
         <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
           <Card>
-            <CardHeader title={'🕴️ CONTACT ME'}/>
+            <CardHeader title={"🕴️ CONTACT ME"}/>
             <Divider/>
             <CardContent>
               <Grid container>
                 {
                   socialParty.map(social => {
-                    return(
-                      <Grid item lg={4} md={4} sm={12} xs={12} onClick={() => window.open(social.social_link, '_blank')}>
+                    return (
+                      <Grid item lg={4} md={4} sm={12} xs={12}
+                            onClick={() => window.open(social.social_link, "_blank")}>
                         <Tooltip title={social.tooltip}>
                           <div id={`${social.id}-lottie`} className={classes.lottieAnimationDiv}/>
                         </Tooltip>
@@ -196,7 +196,7 @@ const ContactMe = () => {
       <Grid item lg={4} sm={12}>
         <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
           <Card>
-            <CardHeader title={'🕴️ HIRE ME'}/>
+            <CardHeader title={"🕴️ HIRE ME"}/>
             <Divider/>
             <CardContent>
 

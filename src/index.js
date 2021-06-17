@@ -9,6 +9,7 @@ import { PortfolioInfoContextProvider }  from "./context/PortfolioInfoContext";
 import { WorkExperienceContextProvider } from "./context/WorkExperienceContext";
 import { AboutContextProvider }          from "./context/AboutContext";
 import { SocialPartyContextProvider }    from "./context/SocialPartyContext";
+import { RemoteConfigContextProvider }   from "./context/RemoteConfigContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,7 +20,9 @@ ReactDOM.render(
             <WorkExperienceContextProvider>
               <AboutContextProvider>
                 <SocialPartyContextProvider>
-                  <App/>
+                  <RemoteConfigContextProvider>
+                    <App/>
+                  </RemoteConfigContextProvider>
                 </SocialPartyContextProvider>
               </AboutContextProvider>
             </WorkExperienceContextProvider>
