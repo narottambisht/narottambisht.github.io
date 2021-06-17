@@ -40,6 +40,7 @@ const Home = (props) => {
                 <span>{`Hello! I am Narottam and I am a Software Engineer working on web applications and web infrastructure. I have been working professionally for ${calcYearsOfExperience(
                   workExperience)} years but tinkering since a kid.`}</span>
                 <br/>
+                <br/>
                 {
                   remoteConfigStore.profile_points &&
                   remoteConfigStore.profile_points.length > 0 &&

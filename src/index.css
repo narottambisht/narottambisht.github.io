@@ -1,12 +1,33 @@
 @font-face {
-  font-family: 'Montserrat';
-  src: url('https://fonts.googleapis.com/css?family=Montserrat');
+    font-family: 'Montserrat';
+    src: url('https://fonts.googleapis.com/css?family=Montserrat');
 }
 
-body{
-  font-family: 'Montserrat';
+body {
+    font-family: 'Montserrat';
 }
 
 .root {
-  font-family: 'Montserrat';
+    font-family: 'Montserrat';
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 25px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
