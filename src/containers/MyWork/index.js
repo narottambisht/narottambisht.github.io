@@ -1,9 +1,5 @@
-import $ from "jquery";
-import React, {
-  useEffect,
-  useRef,
-  useState
-}        from "react";
+import $                                      from "jquery";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Avatar,
   Button,
@@ -13,14 +9,13 @@ import {
   CssBaseline,
   Divider,
   Grid,
-  Typography
-}        from "@material-ui/core";
-
-import myWorkStyles        from "./styles";
-import { privacyPolicy }   from "../../utils/strings";
-import NeonButton          from "../../components/NeonButton";
-import { firestoreDB }     from "../../utils/FirebaseConfig";
-import { ScreenShareIcon } from "../../utils/MaterialIcons";
+  Typography,
+}                                             from "@material-ui/core";
+import myWorkStyles                           from "./styles";
+import { privacyPolicy }                      from "../../utils/strings";
+import NeonButton                             from "../../components/NeonButton";
+import { firestoreDB }                        from "../../utils/FirebaseConfig";
+import { ScreenShareIcon }                    from "../../utils/MaterialIcons";
 
 const MyWork = props => {
   const [projects, setProjects] = useState([]);
@@ -54,7 +49,7 @@ const MyWork = props => {
       projectVideoRef.current.load();
 
       $("html,body").animate({
-          scrollTop: $("#projectInfo").offset().top
+          scrollTop: $("#projectInfo").offset().top,
         },
         "slow");
     }
@@ -78,11 +73,12 @@ const MyWork = props => {
                       <img src={project.project_logo} width={"100%"} alt={project.project_name}/>
                     </div>
                     <Divider/>
-                    <Typography variant="subtitle1" className={classes.projectName}>{project.project_name}</Typography>
+                    <Typography variant="subtitle1"
+                                className={classes.projectName}>{project.project_name}</Typography>
                     <Typography
                       variant="subtitle2"
                       className={classes.projectDescription}
-                      dangerouslySetInnerHTML={{__html: project.description}}
+                      dangerouslySetInnerHTML={{ __html: project.description }}
                     />
                     <NeonButton/>
                   </Grid>
@@ -104,9 +100,9 @@ const MyWork = props => {
                 <Grid item lg={8} sm={12}>
                   <Typography
                     variant="subtitle2"
-                    dangerouslySetInnerHTML={{__html: selectedProject.description}}
+                    dangerouslySetInnerHTML={{ __html: selectedProject.description }}
                   />
-                  <Grid container item spacing={2} style={{marginTop: 10}}>
+                  <Grid container item spacing={2} style={{ marginTop: 10 }}>
                     {
                       selectedProject.tech &&
                       selectedProject.tech.length > 0 &&
@@ -119,16 +115,19 @@ const MyWork = props => {
                             md={3}
                             sm={6}
                             xs={6}
-                            style={{display: "flex"}}
+                            style={{ display: "flex" }}
                             onClick={() => console.log("p", _projTech.tech_name)}
                           >
                             <Avatar
                               alt="Cindy Baker"
                               className={classes.avatarLogo}
                               src={_projTech.tech_logo_url}
-                              classes={{img: classes.avatarImg}}
+                              classes={{ img: classes.avatarImg }}
                             />
-                            <div style={{alignSelf: "center", marginLeft: 10}}>{_projTech.tech_name}</div>
+                            <div style={{
+                              alignSelf : "center",
+                              marginLeft: 10,
+                            }}>{_projTech.tech_name}</div>
                           </Grid>
                         )
                       })}
