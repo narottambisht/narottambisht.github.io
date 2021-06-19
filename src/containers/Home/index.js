@@ -58,7 +58,7 @@ const Home = (props) => {
           </Grid>
           <Grid item lg={12} sm={12}>
             <Card>
-              <CardHeader title={"👨‍💻 WORK EXPERIENCE"}/>
+              <CardHeader title={"👨‍💻 Where I’ve Worked"}/>
               <Divider/>
               <CardContent style={{ textAlign: "justify" }}>
                 {workExperience.length > 0 &&
@@ -67,7 +67,7 @@ const Home = (props) => {
                     <React.Fragment key={index}>
                       <div>
                         <strong>
-                          {_workExperience.designation} - &nbsp;
+                          {_workExperience.designation} @ &nbsp;
                           <a
                             style={{ color: "inherit", marginRight: 5 }}
                             rel="noopener noreferrer"
@@ -95,7 +95,7 @@ const Home = (props) => {
         <Grid item lg={4} sm={12}>
           <Grid item style={{ marginBottom: 15 }}>
             <Card>
-              <CardHeader title={"🛠 SKILLS"}/>
+              <CardHeader title={"🛠 Things I'm good at"}/>
               <Divider/>
               <CardContent style={{ textAlign: "justify" }}>
                 {remoteConfigStore.skill_description}

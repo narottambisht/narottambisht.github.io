@@ -60,7 +60,7 @@ const MyWork = props => {
       <CssBaseline/>
       <Grid item lg={12} sm={12}>
         <Card>
-          <CardHeader title={"🕴️ MY WORK"}/>
+          <CardHeader title={"🕴️ Some Things I’ve Built"}/>
           <Divider/>
           <CardContent>
             <Grid container item spacing={2}>

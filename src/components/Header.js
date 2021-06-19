@@ -1,11 +1,11 @@
 import lottie                   from "lottie-web";
 import {
   Route,
-  Switch
+  Switch,
 }                               from "react-router-dom";
 import React, {
   useContext,
-  useEffect
+  useEffect,
 }                               from "react";
 import {
   Container,
@@ -13,7 +13,7 @@ import {
   Grid,
   IconButton,
   Tooltip,
-  Typography
+  Typography,
 }                               from "@material-ui/core";
 import Drawer                   from "./Drawer";
 import Home                     from "../containers/Home";
@@ -30,7 +30,7 @@ import {
   InstagramIcon,
   LinkedInIcon,
   MenuIcon,
-  TwitterIcon
+  TwitterIcon,
 }                               from "../utils/MaterialIcons";
 import { RemoteConfigContext }  from "../context/RemoteConfigContext";
 import moment                   from "moment";
@@ -38,7 +38,7 @@ import moment                   from "moment";
 const Header = props => {
   const [rootStore, setRootStore]                   = useContext(RootContext),
         [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext),
-        [remoteConfigStore, setRemoteConfigStore]   = React.useContext(RemoteConfigContext);
+        [remoteConfigStore]                         = React.useContext(RemoteConfigContext);
 
   useEffect(() => {
     firestoreDB.collection("portfolio-info").onSnapshot(snapshot => {
@@ -50,7 +50,7 @@ const Header = props => {
       renderer : "svg",
       loop     : true,
       autoplay : true,
-      path     : process.env.PUBLIC_URL + "/images/programming-man.json"
+      path     : process.env.PUBLIC_URL + "/images/programming-man.json",
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,7 +66,7 @@ const Header = props => {
             color="inherit"
             aria-label="open drawer"
             edge="end"
-            onClick={() => setRootStore({...rootStore, drawerOpen: true})}
+            onClick={() => setRootStore({ ...rootStore, drawerOpen: true })}
           >
             <MenuIcon/>
           </IconButton>
@@ -144,9 +144,13 @@ const Header = props => {
         <Route path={"/my-work"} exact component={MyWork}/>
         <Route path={"/contact-me"} exact component={ContactMe}/>
       </Switch>
-      <p style={{textAlign: "center"}}>
-        © {moment().format("YYYY")} {remoteConfigStore.name}. All Rights Reserved
-      </p>
+      <a
+        href={"https://github.com/narottambisht/narottambisht.github.io"}
+        rel="noopener noreferrer"
+        target="_blank"
+        className={classes.footer}>
+        &lt; © {moment().format("YYYY")} Designed & Built by {remoteConfigStore.name} />
+      </a>
     </React.Fragment>
   )
 }

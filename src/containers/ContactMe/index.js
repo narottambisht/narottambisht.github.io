@@ -1,18 +1,28 @@
-import lottie                                                                       from "lottie-web";
-import React, { useContext, useEffect, useState }                                   from "react";
-import { Button, Card, CardContent, CardHeader, Divider, Grid, TextField, Tooltip } from "@material-ui/core";
+import lottie                                     from "lottie-web";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  TextField,
+  Tooltip,
+  Typography,
+}                                                 from "@material-ui/core";
 import {
   emailError,
   emailFieldPlaceholder,
   messageError,
   messageFieldPlaceholder,
   nameError,
-  nameFieldPlaceholder
-}                                                                                   from "../../utils/strings";
-import contactMeStyles                                                              from "./style";
-import { SocialPartyContext }                                                       from "../../context/SocialPartyContext";
-import MSnackbar                                                                    from "../../components/MSnackbar";
-import { firestoreDB, timeStamp }                                                   from "../../utils/FirebaseConfig";
+  nameFieldPlaceholder,
+}                                                 from "../../utils/strings";
+import contactMeStyles                            from "./style";
+import { SocialPartyContext }                     from "../../context/SocialPartyContext";
+import MSnackbar                                  from "../../components/MSnackbar";
+import { firestoreDB, timeStamp }                 from "../../utils/FirebaseConfig";
 
 const ContactMe = () => {
   const [snackStatus, setSnackStatus] = useState(false);
@@ -22,7 +32,7 @@ const ContactMe = () => {
     message     : "",
     nameError   : "",
     emailError  : "",
-    messageError: ""
+    messageError: "",
   });
 
   const [socialParty, setSocialParty] = useContext(SocialPartyContext);
@@ -46,7 +56,7 @@ const ContactMe = () => {
         renderer : "svg",
         loop     : true,
         autoplay : true,
-        path     : `images/${social.id}.json`
+        path     : `images/${social.id}.json`,
       }));
     }
   }, [socialParty])
@@ -54,13 +64,13 @@ const ContactMe = () => {
   const classes = contactMeStyles();
 
   const textInputHandler = (event) => {
-    const {name, value} = event.target;
-    setContactMeForm({...contactMeForm, [name]: value});
+    const { name, value } = event.target;
+    setContactMeForm({ ...contactMeForm, [name]: value });
   }
 
   const submitContactMeForm = () => {
-    setContactMeForm({...contactMeForm, nameError: "", emailError: "", messageError: ""});
-    const {name, email, message} = contactMeForm;
+    setContactMeForm({ ...contactMeForm, nameError: "", emailError: "", messageError: "" });
+    const { name, email, message } = contactMeForm;
     const nameRegex = /^[a-zA-Z '.-]*$/;
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const contactCollectionRef = firestoreDB.collection("contact-data");
@@ -83,17 +93,21 @@ const ContactMe = () => {
 
     if (isValidated) {
       const createdAt = timeStamp();
-      contactCollectionRef.add({name, email, message, createdAt})
-        .then(docRef => {
-          if (docRef.id)
-            handleOpenSnack();
-          setContactMeForm({name: "", email: "", message: "", nameError: "", emailError: "", messageError: ""});
-        })
-        .catch(err => {
-          console.log("err", err);
-        });
+      contactCollectionRef.add({ name, email, message, createdAt }).then(docRef => {
+        if (docRef.id)
+          handleOpenSnack();
+        setContactMeForm(
+          { name: "", email: "", message: "", nameError: "", emailError: "", messageError: "" });
+      }).catch(err => {
+        console.log("err", err);
+      });
     } else {
-      setContactMeForm({...contactMeForm, nameError: _nameError, emailError: _emailError, messageError: _messageError});
+      setContactMeForm({
+        ...contactMeForm,
+        nameError   : _nameError,
+        emailError  : _emailError,
+        messageError: _messageError,
+      });
     }
   }
 
@@ -114,12 +128,17 @@ const ContactMe = () => {
         severity="success"
       />
       <Grid item lg={8} sm={12} xs={12}>
-        <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
+        <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
           <Card>
-            <CardHeader title={"🕴️ CONTACT ME"}/>
+            <CardHeader title={"🕴️ Get In Touch"}/>
             <Divider/>
             <CardContent>
-              <form noValidate autoComplete="off" style={{display: "grid"}}>
+              <Typography>
+                Although I'm not currently looking for any new opportunities, my inbox is always
+                open. Whether you have a question or just want to say hi, I'll try my best to get
+                back to you!
+              </Typography>
+              <form noValidate autoComplete="off" style={{ display: "grid" }}>
                 <TextField
                   label="Name"
                   name="name"
@@ -161,14 +180,15 @@ const ContactMe = () => {
                   error={contactMeForm.messageError !== ""}
                 />
 
-                <Button variant="contained" onClick={submitContactMeForm}>Hit it up..!!</Button>
+                <Button variant="contained" color={"primary"} onClick={submitContactMeForm}>Hit it
+                  up..!!</Button>
               </form>
             </CardContent>
           </Card>
         </Grid>
-        <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
+        <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
           <Card>
-            <CardHeader title={"🕴️ CONTACT ME"}/>
+            <CardHeader title={"🕴️ My social handles"}/>
             <Divider/>
             <CardContent>
               <Grid container>
@@ -194,7 +214,7 @@ const ContactMe = () => {
         </Grid>
       </Grid>
       <Grid item lg={4} sm={12}>
-        <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
+        <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
           <Card>
             <CardHeader title={"🕴️ HIRE ME"}/>
             <Divider/>

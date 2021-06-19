@@ -50,6 +50,14 @@ const headerStyles = makeStyles(theme => ({
     height     : 200,
     marginRight: 0,
   },
+  footer            : {
+    textDecoration: "none",
+    color         : "inherit",
+    textAlign     : "center",
+    display       : "inline-block",
+    width         : "100%",
+    marginBottom  : 10,
+  },
 }));
 
 const neonButtonStyles = makeStyles(theme => ({
