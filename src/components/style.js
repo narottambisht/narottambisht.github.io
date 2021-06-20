@@ -168,19 +168,15 @@ const imageGridStyles = makeStyles(theme => ({
     opacity : "0.8",
   },
   imgGrid         : {
-    margin                 : "20px auto",
-    display                : "grid",
-    "grid-template-columns": "1fr 1fr 1fr",
-    "grid-gap"             : 40,
+    display        : "flex",
+    flexWrap       : "wrap",
+    justifyContent : "space-around",
+    overflow       : "hidden",
+    backgroundColor: theme.palette.background.paper,
   },
-  image           : {
-    minWidth : "100%",
-    minHeight: "100%",
-    maxWidth : "150%",
-    position : "absolute",
-    top      : 0,
-    left     : 0,
-    objectFit: "contain",
+  gridList        : {
+    width : "100%",
+    height: "100%",
   },
   modalBackdrop   : {
     position  : "fixed",

@@ -21,7 +21,7 @@ const About = () => {
     <React.Fragment>
       <Grid container spacing={2} className={classes.containerGrid}>
         <Grid item lg={8} sm={12}>
-          <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
+          <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
             <Card>
               <CardHeader title="ABOUT ME"/>
               <Divider/>
@@ -30,15 +30,17 @@ const About = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item lg={12} sm={12} style={{marginBottom: 15}}>
+          <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
             <Card>
               <CardHeader title="FUTURE GOALS"/>
               <Divider/>
               <CardContent>
-                {aboutStore.future_goals && aboutStore.future_goals.goals_array.map((_goal, index) => {
+                {aboutStore.future_goals &&
+                aboutStore.future_goals.goals_array.map((_goal, index) => {
                   return (
                     <React.Fragment key={index}>
-                      <Typography variant="subtitle1" paragraph={true} style={{fontWeight: "bold"}}>
+                      <Typography variant="subtitle1" paragraph={true}
+                                  style={{ fontWeight: "bold" }}>
                         {_goal.goal_title}
                       </Typography>
                       <Typography variant="subtitle2" component="div" gutterBottom={true}>
@@ -64,23 +66,23 @@ const About = () => {
           </Grid>
         </Grid>
         <Grid item lg={4} sm={12} xs={12}>
-          <Grid item lg={12} sm={12} xs={12} style={{marginBottom: 15}}>
+          <Grid item lg={12} sm={12} xs={12} style={{ marginBottom: 15 }}>
             <Card>
               <CardHeader title="DETAILS"/>
               <Divider/>
               <CardContent>
-                <div style={{marginBottom: 10}} className={classes.aboutDetails}>
-                  <div style={{fontWeight: "bold"}}>Date of birth</div>
+                <div style={{ marginBottom: 10 }} className={classes.aboutDetails}>
+                  <div style={{ fontWeight: "bold" }}>Date of birth</div>
                   <div>12th June, 1995</div>
                 </div>
                 <Divider/>
-                <div style={{marginBottom: 10, marginTop: 10}} className={classes.aboutDetails}>
-                  <div style={{fontWeight: "bold"}}>Nationality</div>
+                <div style={{ marginBottom: 10, marginTop: 10 }} className={classes.aboutDetails}>
+                  <div style={{ fontWeight: "bold" }}>Nationality</div>
                   <div>Indian</div>
                 </div>
                 <Divider/>
-                <div style={{marginTop: 10}} className={classes.aboutDetails}>
-                  <div style={{fontWeight: "bold"}}>Marrital Status</div>
+                <div style={{ marginTop: 10 }} className={classes.aboutDetails}>
+                  <div style={{ fontWeight: "bold" }}>Marrital Status</div>
                   <div>Unmarried</div>
                 </div>
               </CardContent>
