@@ -45,7 +45,9 @@ const ContactMe = () => {
         return social;
       }))
     });
-
+    return () => {
+      setSocialParty({});
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -193,9 +195,9 @@ const ContactMe = () => {
             <CardContent>
               <Grid container>
                 {
-                  socialParty.map(social => {
+                  socialParty && socialParty.length > 0 && socialParty.map((social, index) => {
                     return (
-                      <Grid item lg={4} md={4} sm={12} xs={12}
+                      <Grid item lg={4} md={4} sm={12} xs={12} key={index}
                             onClick={() => window.open(social.social_link, "_blank")}>
                         <Tooltip title={social.tooltip}>
                           <div id={`${social.id}-lottie`} className={classes.lottieAnimationDiv}/>
@@ -228,4 +230,4 @@ const ContactMe = () => {
   )
 }
 
-export default ContactMe;
+export default React.memo(ContactMe);
