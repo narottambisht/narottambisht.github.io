@@ -6,6 +6,7 @@ import {
 import React, {
   useContext,
   useEffect,
+  useRef,
 }                               from "react";
 import {
   Container,
@@ -15,6 +16,7 @@ import {
   Tooltip,
   Typography,
 }                               from "@material-ui/core";
+import { init }                 from "ityped";
 import Drawer                   from "./Drawer";
 import Home                     from "../containers/Home";
 import { headerStyles }         from "./style";
@@ -38,7 +40,8 @@ import moment                   from "moment";
 const Header = props => {
   const [rootStore, setRootStore]                   = useContext(RootContext),
         [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext),
-        [remoteConfigStore]                         = React.useContext(RemoteConfigContext);
+        [remoteConfigStore]                         = useContext(RemoteConfigContext),
+        achievementRef                              = useRef();
 
   useEffect(() => {
     firestoreDB.collection("portfolio-info").onSnapshot(snapshot => {
@@ -53,6 +56,12 @@ const Header = props => {
       path     : process.env.PUBLIC_URL + "/images/programming-man.json",
     });
 
+    init(achievementRef.current, {
+      showCursor: true,
+      backDelay : 1500,
+      backSpeed : 60,
+      strings   : ["Coder", "Content Creator"],
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -90,13 +99,14 @@ const Header = props => {
             </Typography>
 
             <Typography variant="h6" className={classes.profileIntroSpacing}>
-              {remoteConfigStore.achievements}
+              Freelance <span ref={achievementRef}/>
             </Typography>
 
             <div>
               <Tooltip title="Connect with me on Facebook">
                 <IconButton
                   edge={"start"}
+                  className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.facebook)}>
                   <FacebookIcon/>
                 </IconButton>
@@ -104,6 +114,7 @@ const Header = props => {
 
               <Tooltip title="Follow me on my twitter handle">
                 <IconButton
+                  className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.twitter)}>
                   <TwitterIcon/>
                 </IconButton>
@@ -111,6 +122,7 @@ const Header = props => {
 
               <Tooltip title="Checkout my Github profile">
                 <IconButton
+                  className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.github)}>
                   <GitHubIcon/>
                 </IconButton>
@@ -118,6 +130,7 @@ const Header = props => {
 
               <Tooltip title="Connect with me on my LinkedIn page">
                 <IconButton
+                  className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.linkedin)}>
                   <LinkedInIcon/>
                 </IconButton>
@@ -125,6 +138,7 @@ const Header = props => {
 
               <Tooltip title="Follow me on my Instagram profile">
                 <IconButton
+                  className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.instagram)}>
                   <InstagramIcon/>
                 </IconButton>

@@ -10,6 +10,7 @@
     "classnames": "^2.2.6",
     "firebase": "^7.21.0",
     "framer-motion": "^2.7.7",
+    "ityped": "^1.0.3",
     "jquery": "^3.5.1",
     "lottie-web": "^5.7.3",
     "moment": "^2.28.0",

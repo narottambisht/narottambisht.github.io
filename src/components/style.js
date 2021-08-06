@@ -31,6 +31,10 @@ const headerStyles = makeStyles(theme => ({
     width       : "180px",
     height      : "180px",
     borderRadius: "100%",
+    transition  : "all .2s ease-in-out",
+    "&:hover"   : {
+      transform: "scale(1.1)",
+    },
   },
   headerIntro       : {
     [theme.breakpoints.down("xs")]: {
@@ -57,6 +61,12 @@ const headerStyles = makeStyles(theme => ({
     display       : "inline-block",
     width         : "100%",
     marginBottom  : 10,
+  },
+  iconButton        : {
+    transition: "transform .7s ease-in-out",
+    "&:hover" : {
+      transform: "rotate(180deg)",
+    },
   },
 }));
 
