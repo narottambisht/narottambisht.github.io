@@ -27,7 +27,7 @@ const Drawer = props => {
    * url can be used to view/download the resume from dashboard drawer.
    */
   useEffect(async () => {
-    let pathRef = storageBucket.ref("miscellaneous_assets/NarottamBisht_MERNStack_3YRExp.pdf");
+    let pathRef = storageBucket.ref("miscellaneous_assets/Resume.pdf");
     let downloadUrl = await pathRef.getDownloadURL()
     setResumeLink(downloadUrl);
   }, []);
@@ -63,7 +63,7 @@ const Drawer = props => {
   const downloadResume = async () => {
     const link = document.createElement("a");
     link.href = resumeLink;
-    link.setAttribute("download", "Resume.pdf");
+    link.setAttribute("download", "NarottamBisht_MERNStack_3YRExp.pdf");
     link.setAttribute("target", "_blank");
     document.body.appendChild(link);
     link.click();
