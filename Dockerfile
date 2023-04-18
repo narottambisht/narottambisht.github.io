@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:14-alpine as portfolioBuild
 WORKDIR /react
 COPY package.json package-lock.json ./
 RUN npm install
