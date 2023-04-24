@@ -91,7 +91,7 @@ const Header = props => {
           </Grid>
           <Grid item lg={5} md={4} sm={12} className={classes.headerIntro}>
             <Typography variant="h4" className={classes.profileIntroName}>
-              Hey 👋 Welcome Ji Ji
+              Hey 👋 Welcome Ji Ji aa gya noddy
               <span role="img" aria-label="welcome-emoji"> 🤓</span>,
               <br/>
               I'm <strong>{remoteConfigStore.name}</strong>
