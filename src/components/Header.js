@@ -99,7 +99,7 @@ const Header = props => {
             </Typography>
 
             <Typography variant="h6" className={classes.profileIntroSpacing}>
-              Senior <span ref={achievementRef}/>
+              Senir <span ref={achievementRef}/>
             </Typography>
 
             <div>
