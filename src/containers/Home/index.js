@@ -1,20 +1,20 @@
-import moment                                                 from "moment";
-import { Rating }                                             from "@material-ui/lab";
-import React, { useContext, useEffect }                       from "react";
+import moment from "moment";
+import { Rating } from "@material-ui/lab";
+import React, { useContext, useEffect } from "react";
 import { Card, CardContent, CardHeader, Chip, Divider, Grid } from "@material-ui/core";
-import homeStyles                                             from "./styles";
-import { firestoreDB }                                        from "../../utils/FirebaseConfig";
-import { SkillsContext }                                      from "../../context/SkillsContext";
-import { WorkExperienceContext }                              from "../../context/WorkExperienceContext";
-import { StarBorderIcon }                                     from "../../utils/MaterialIcons";
-import { calcYearsOfExperience }                              from "../../utils/config-util";
-import { RemoteConfigContext }                                from "../../context/RemoteConfigContext";
+import homeStyles from "./styles";
+import { firestoreDB } from "../../utils/FirebaseConfig";
+import { SkillsContext } from "../../context/SkillsContext";
+import { WorkExperienceContext } from "../../context/WorkExperienceContext";
+import { StarBorderIcon } from "../../utils/MaterialIcons";
+import { calcYearsOfExperience } from "../../utils/config-util";
+import { RemoteConfigContext } from "../../context/RemoteConfigContext";
 
 const Home = (props) => {
-  const [skills, setSkills]                 = useContext(SkillsContext),
-        [workExperience, setWorkExperience] = useContext(WorkExperienceContext),
-        [remoteConfigStore]                 = useContext(RemoteConfigContext),
-        classes                             = homeStyles();
+  const [skills, setSkills] = useContext(SkillsContext),
+    [workExperience, setWorkExperience] = useContext(WorkExperienceContext),
+    [remoteConfigStore] = useContext(RemoteConfigContext),
+    classes = homeStyles();
 
   useEffect(() => {
     firestoreDB.collection("skills").onSnapshot(snapshot => {
@@ -34,13 +34,13 @@ const Home = (props) => {
         <Grid item lg={8} sm={12}>
           <Grid item lg={12} sm={12} style={{ marginBottom: 15 }}>
             <Card>
-              <CardHeader title={"🕴️ PROFILE"}/>
-              <Divider/>
+              <CardHeader title={"🕴️ PROFILE"} />
+              <Divider />
               <CardContent style={{ textAlign: "justify" }}>
-                <span>{`Hello! I am Narottam and I am a Software Engineer working on web applications and web infrastructure. I have been working professionally for ${calcYearsOfExperience(
+                <span>{`Hello! I am Narottam and I am a Team Lead working on web applications and web infrastructure. I have been working professionally for ${calcYearsOfExperience(
                   workExperience)} years but tinkering since a kid.`}</span>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 {
                   remoteConfigStore.profile_points &&
                   remoteConfigStore.profile_points.length > 0 &&
@@ -48,7 +48,7 @@ const Home = (props) => {
                     return (
                       <React.Fragment key={index}>
                         <span>{_profile}</span>
-                        <br/>
+                        <br />
                       </React.Fragment>
                     )
                   })
@@ -58,36 +58,36 @@ const Home = (props) => {
           </Grid>
           <Grid item lg={12} sm={12}>
             <Card>
-              <CardHeader title={"👨‍💻 Where I’ve Worked"}/>
-              <Divider/>
+              <CardHeader title={"👨‍💻 Where I’ve Worked"} />
+              <Divider />
               <CardContent style={{ textAlign: "justify" }}>
                 {workExperience.length > 0 &&
-                workExperience.reverse().map((_workExperience, index) => {
-                  return (
-                    <React.Fragment key={index}>
-                      <div>
-                        <strong>
-                          {_workExperience.designation} @ &nbsp;
-                          <a
-                            style={{ color: "inherit", marginRight: 5 }}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            href={_workExperience.website}>
-                            {_workExperience.company_name}
-                          </a>
-                          ({moment(_workExperience.start_date.toDate()).
-                          format("MMM YYYY")} - {_workExperience.end_date ? moment(
-                          _workExperience.end_date.toDate()).format("MMM YYYY") : "Current"})
-                        </strong>
-                        <div dangerouslySetInnerHTML={{ __html: _workExperience.job_description }}/>
-                      </div>
-                      {
-                        index + 1 !== workExperience.length &&
-                        <Divider style={{ marginBottom: 10 }}/>
-                      }
-                    </React.Fragment>
-                  )
-                })}
+                  workExperience.reverse().map((_workExperience, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <div>
+                          <strong>
+                            {_workExperience.designation} @ &nbsp;
+                            <a
+                              style={{ color: "inherit", marginRight: 5 }}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              href={_workExperience.website}>
+                              {_workExperience.company_name}
+                            </a>
+                            ({moment(_workExperience.start_date.toDate()).
+                              format("MMM YYYY")} - {_workExperience.end_date ? moment(
+                                _workExperience.end_date.toDate()).format("MMM YYYY") : "Current"})
+                          </strong>
+                          <div dangerouslySetInnerHTML={{ __html: _workExperience.job_description }} />
+                        </div>
+                        {
+                          index + 1 !== workExperience.length &&
+                          <Divider style={{ marginBottom: 10 }} />
+                        }
+                      </React.Fragment>
+                    )
+                  })}
               </CardContent>
             </Card>
           </Grid>
@@ -95,12 +95,12 @@ const Home = (props) => {
         <Grid item lg={4} sm={12}>
           <Grid item style={{ marginBottom: 15 }}>
             <Card>
-              <CardHeader title={"🛠 Things I'm good at"}/>
-              <Divider/>
+              <CardHeader title={"🛠 Things I'm good at"} />
+              <Divider />
               <CardContent style={{ textAlign: "justify" }}>
                 {remoteConfigStore.skill_description}
               </CardContent>
-              <Divider/>
+              <Divider />
               <div style={{ marginLeft: 10, marginRight: 10 }}>
                 {
                   skills &&
@@ -113,12 +113,12 @@ const Home = (props) => {
                           {
                             skill.skills_array.map((_skill, index) => {
                               return (
-                                <Chip key={index} color="primary" label={_skill.skill_name}/>
+                                <Chip key={index} color="primary" label={_skill.skill_name} />
                               )
                             })
                           }
                         </div>
-                        {index + 1 !== skills.length && <Divider/>}
+                        {index + 1 !== skills.length && <Divider />}
                       </React.Fragment>
                     )
                   })
@@ -128,8 +128,8 @@ const Home = (props) => {
           </Grid>
           <Grid item>
             <Card>
-              <CardHeader title={"🌏 LANGUAGES"}/>
-              <Divider/>
+              <CardHeader title={"🌏 LANGUAGES"} />
+              <Divider />
               <CardContent>
                 {
                   remoteConfigStore.language &&
@@ -142,12 +142,12 @@ const Home = (props) => {
                             name="customized-empty"
                             defaultValue={_language.rating}
                             precision={0.5}
-                            emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+                            emptyIcon={<StarBorderIcon fontSize="inherit" />}
                           />
                         </div>
                         {
                           index + 1 !== remoteConfigStore.language.length &&
-                          <Divider style={{ marginTop: 10, marginBottom: 10 }}/>
+                          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
                         }
                       </React.Fragment>
                     )

@@ -1,13 +1,13 @@
-import lottie                   from "lottie-web";
+import lottie from "lottie-web";
 import {
   Route,
   Switch,
-}                               from "react-router-dom";
+} from "react-router-dom";
 import React, {
   useContext,
   useEffect,
   useRef,
-}                               from "react";
+} from "react";
 import {
   Container,
   CssBaseline,
@@ -15,16 +15,16 @@ import {
   IconButton,
   Tooltip,
   Typography,
-}                               from "@material-ui/core";
-import { init }                 from "ityped";
-import Drawer                   from "./Drawer";
-import Home                     from "../containers/Home";
-import { headerStyles }         from "./style";
-import About                    from "../containers/About";
-import MyWork                   from "../containers/MyWork";
-import ContactMe                from "../containers/ContactMe";
-import { firestoreDB }          from "../utils/FirebaseConfig";
-import { RootContext }          from "../context/RootContext";
+} from "@material-ui/core";
+import { init } from "ityped";
+import Drawer from "./Drawer";
+import Home from "../containers/Home";
+import { headerStyles } from "./style";
+import About from "../containers/About";
+import MyWork from "../containers/MyWork";
+import ContactMe from "../containers/ContactMe";
+import { firestoreDB } from "../utils/FirebaseConfig";
+import { RootContext } from "../context/RootContext";
 import { PortfolioInfoContext } from "../context/PortfolioInfoContext";
 import {
   FacebookIcon,
@@ -33,15 +33,15 @@ import {
   LinkedInIcon,
   MenuIcon,
   TwitterIcon,
-}                               from "../utils/MaterialIcons";
-import { RemoteConfigContext }  from "../context/RemoteConfigContext";
-import moment                   from "moment";
+} from "../utils/MaterialIcons";
+import { RemoteConfigContext } from "../context/RemoteConfigContext";
+import moment from "moment";
 
 const Header = props => {
-  const [rootStore, setRootStore]                   = useContext(RootContext),
-        [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext),
-        [remoteConfigStore]                         = useContext(RemoteConfigContext),
-        achievementRef                              = useRef();
+  const [rootStore, setRootStore] = useContext(RootContext),
+    [portfolioInfoStore, setPortfolioInfoStore] = useContext(PortfolioInfoContext),
+    [remoteConfigStore] = useContext(RemoteConfigContext),
+    achievementRef = useRef();
 
   useEffect(() => {
     firestoreDB.collection("portfolio-info").onSnapshot(snapshot => {
@@ -50,17 +50,17 @@ const Header = props => {
 
     lottie.loadAnimation({
       container: document.getElementById("lottie"),
-      renderer : "svg",
-      loop     : true,
-      autoplay : true,
-      path     : process.env.PUBLIC_URL + "/images/programming-man.json",
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      path: process.env.PUBLIC_URL + "/images/programming-man.json",
     });
 
     init(achievementRef.current, {
       showCursor: true,
-      backDelay : 1500,
-      backSpeed : 60,
-      strings   : ["Coder", "Content Creator"],
+      backDelay: 1500,
+      backSpeed: 60,
+      strings: ["Tech Lead", "Content Creator", "Coder"],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -77,11 +77,11 @@ const Header = props => {
             edge="end"
             onClick={() => setRootStore({ ...rootStore, drawerOpen: true })}
           >
-            <MenuIcon/>
+            <MenuIcon />
           </IconButton>
         </div>
         <Grid container className={classes.containerGrid} justify={"center"}>
-          <CssBaseline/>
+          <CssBaseline />
           <Grid item lg={2} md={2} sm={12} className={classes.profileImageGrid}>
             <img
               src={process.env.PUBLIC_URL + "/images/profile.jpg"}
@@ -91,15 +91,15 @@ const Header = props => {
           </Grid>
           <Grid item lg={5} md={4} sm={12} className={classes.headerIntro}>
             <Typography variant="h4" className={classes.profileIntroName}>
-              Hey 👋 Welcome neosoft
+              Hey 👋 Welcome
               <span role="img" aria-label="welcome-emoji"> 🤓</span>,
-              <br/>
+              <br />
               I'm <strong>{remoteConfigStore.name}</strong>
               <span role="img" aria-label="name-emoji">🕺🙇‍♂️</span>
             </Typography>
 
             <Typography variant="h6" className={classes.profileIntroSpacing}>
-              Senior <span ref={achievementRef}/>
+              <span ref={achievementRef} />
             </Typography>
 
             <div>
@@ -108,7 +108,7 @@ const Header = props => {
                   edge={"start"}
                   className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.facebook)}>
-                  <FacebookIcon/>
+                  <FacebookIcon />
                 </IconButton>
               </Tooltip>
 
@@ -116,7 +116,7 @@ const Header = props => {
                 <IconButton
                   className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.twitter)}>
-                  <TwitterIcon/>
+                  <TwitterIcon />
                 </IconButton>
               </Tooltip>
 
@@ -124,7 +124,7 @@ const Header = props => {
                 <IconButton
                   className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.github)}>
-                  <GitHubIcon/>
+                  <GitHubIcon />
                 </IconButton>
               </Tooltip>
 
@@ -132,7 +132,7 @@ const Header = props => {
                 <IconButton
                   className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.linkedin)}>
-                  <LinkedInIcon/>
+                  <LinkedInIcon />
                 </IconButton>
               </Tooltip>
 
@@ -140,30 +140,30 @@ const Header = props => {
                 <IconButton
                   className={classes.iconButton}
                   onClick={() => window.open(remoteConfigStore.social_links.instagram)}>
-                  <InstagramIcon/>
+                  <InstagramIcon />
                 </IconButton>
               </Tooltip>
             </div>
           </Grid>
-          <Grid item lg={3} md={3} sm={12}/>
+          <Grid item lg={3} md={3} sm={12} />
           <Grid item lg={2} md={3} sm={12} className={classes.downloadCvGrid}>
-            <div className={classes.lottieAnimationDiv} id="lottie"/>
+            <div className={classes.lottieAnimationDiv} id="lottie" />
           </Grid>
         </Grid>
         <Drawer {...props} />
       </Container>
       <Switch>
-        <Route path={"/"} exact component={Home}/>
-        <Route path={"/about"} exact component={About}/>
-        <Route path={"/my-work"} exact component={MyWork}/>
-        <Route path={"/contact-me"} exact component={ContactMe}/>
+        <Route path={"/"} exact component={Home} />
+        <Route path={"/about"} exact component={About} />
+        <Route path={"/my-work"} exact component={MyWork} />
+        <Route path={"/contact-me"} exact component={ContactMe} />
       </Switch>
       <a
         href={"https://github.com/narottambisht/narottambisht.github.io"}
         rel="noopener noreferrer"
         target="_blank"
         className={classes.footer}>
-        &lt; © {moment().format("YYYY")} Designed & Built by {remoteConfigStore.name} />
+        &lt; © {moment().format("YYYY")} Designed & Built by {remoteConfigStore.name} &gt;
       </a>
     </React.Fragment>
   )
