@@ -1,14 +1,13 @@
 import firebase from "firebase";
 
 const firebaseConfig = firebase.initializeApp({
-  apiKey           : "AIzaSyBNW35sc1XW4jz8km47M9R4n9hScEO-kvo",
-  authDomain       : "narottam-portfolio.firebaseapp.com",
-  databaseURL      : "https://narottam-portfolio.firebaseio.com",
-  projectId        : "narottam-portfolio",
-  storageBucket    : "narottam-portfolio.appspot.com",
-  messagingSenderId: "387012073941",
-  appId            : "1:387012073941:web:a125957edf7307c366855c",
-  measurementId    : "G-V3E6ZHHZVF",
+  apiKey: "AIzaSyC3T0ZI9CDOi7GSnMW0vXkbwNlHkNFD4pQ",
+  authDomain: "portfolio-d5658.firebaseapp.com",
+  projectId: "portfolio-d5658",
+  storageBucket: "portfolio-d5658.appspot.com",
+  messagingSenderId: "166302306604",
+  appId: "1:166302306604:web:f10ff8ac69ab6c226e1c89",
+  measurementId: "G-HKCF6Q51Q5"
 });
 
 const firestoreDB = firebaseConfig.firestore();
@@ -17,13 +16,13 @@ const storageBucket = firebase.storage();
 const remoteConfig = firebase.remoteConfig();
 remoteConfig.settings.minimumFetchIntervalMillis = 360000;
 remoteConfig.defaultConfig = {
-  "theme"            : "",
-  "name"             : "",
-  "achievements"     : "",
+  "theme": "",
+  "name": "",
+  "achievements": "",
   "skill_description": "",
-  "social_links"     : "",
-  "language"         : [],
-  "profile_points"   : [],
+  "social_links": "",
+  "language": [],
+  "profile_points": [],
 };
 
 /**
@@ -36,13 +35,13 @@ const fetchAndActivateRemoteConfig = (setRemoteConfigStore) => {
     const remoteConfigData = remoteConfig.getAll();
 
     let remoteConfigParsed = {
-      theme            : JSON.parse(remoteConfigData.theme.asString()),
-      name             : remoteConfigData.name.asString(),
-      achievements     : remoteConfigData.achievements.asString(),
+      theme: JSON.parse(remoteConfigData.theme.asString()),
+      name: remoteConfigData.name.asString(),
+      achievements: remoteConfigData.achievements.asString(),
       skill_description: remoteConfigData.skill_description.asString(),
-      social_links     : JSON.parse(remoteConfigData.social_links.asString()),
-      language         : JSON.parse(remoteConfigData.language.asString()),
-      profile_points   : JSON.parse(remoteConfigData.profile_points.asString()),
+      social_links: JSON.parse(remoteConfigData.social_links.asString()),
+      language: JSON.parse(remoteConfigData.language.asString()),
+      profile_points: JSON.parse(remoteConfigData.profile_points.asString()),
     }
 
     setRemoteConfigStore(remoteConfigParsed);

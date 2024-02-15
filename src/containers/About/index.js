@@ -36,7 +36,7 @@ const About = () => {
               <Divider />
               <CardContent>
                 {aboutStore.future_goals &&
-                  aboutStore.future_goals.goals_array.map((_goal, index) => {
+                  aboutStore.future_goals.map((_goal, index) => {
                     return (
                       <React.Fragment key={index}>
                         <Typography variant="subtitle1" paragraph={true}
