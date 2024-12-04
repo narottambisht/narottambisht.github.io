@@ -36,6 +36,15 @@ const homeStyles = makeStyles(theme => ({
     },
     marginTop: 15,
     marginBottom: 20
+  },
+  skillsPill: {
+    backgroundColor: 'red',
+    borderRadius: 10,
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingTop: 2,
+    paddingBottom: 2,
+    textAlign: 'center',
   }
 }));
 
