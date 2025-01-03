@@ -62,7 +62,7 @@ const Home = (props) => {
               <Divider />
               <CardContent style={{ textAlign: "justify" }}>
                 {workExperience.length > 0 &&
-                  workExperience.reverse().map((_workExperience, index) => {
+                  workExperience.map((_workExperience, index) => {
                     return (
                       <React.Fragment key={index}>
                         <div>
