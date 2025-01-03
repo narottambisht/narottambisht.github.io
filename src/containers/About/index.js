@@ -12,7 +12,7 @@ const About = () => {
 
   useEffect(() => {
     firestoreDB.collection("about-info").onSnapshot(snapshot => {
-      snapshot.docs.map(doc => setAboutStore(doc.data()));
+      setAboutStore(snapshot.docs.map(doc => doc.data())[0]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -35,20 +35,19 @@ const About = () => {
               <CardHeader title="FUTURE GOALS" />
               <Divider />
               <CardContent>
-                {aboutStore.future_goals &&
-                  aboutStore.future_goals.goals_array.map((_goal, index) => {
-                    return (
+                {aboutStore?.future_goals?.length && aboutStore.future_goals.map((_goal, index) => {
+                  return (
                       <React.Fragment key={index}>
                         <Typography variant="subtitle1" paragraph={true}
-                          style={{ fontWeight: "bold" }}>
+                                    style={{ fontWeight: "bold" }}>
                           {_goal.goal_title}
                         </Typography>
                         <Typography variant="subtitle2" component="div" gutterBottom={true}>
                           {_goal.goal_description}
                         </Typography>
                       </React.Fragment>
-                    )
-                  })}
+                  )
+                })}
               </CardContent>
             </Card>
           </Grid>

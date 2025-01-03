@@ -37,7 +37,7 @@ const Home = (props) => {
               <CardHeader title={"🕴️ PROFILE"} />
               <Divider />
               <CardContent style={{ textAlign: "justify" }}>
-                <span>{`Hello! I am Narottam and I am a Team Lead working on web applications and web infrastructure. I have been working professionally for ${calcYearsOfExperience(
+                <span>{`Hello! I am Narottam and I am a Tech Lead working on web applications and web infrastructure. I have been working professionally for ${calcYearsOfExperience(
                   workExperience)} years but tinkering since a kid.`}</span>
                 <br />
                 <br />
@@ -62,7 +62,7 @@ const Home = (props) => {
               <Divider />
               <CardContent style={{ textAlign: "justify" }}>
                 {workExperience.length > 0 &&
-                  workExperience.reverse().map((_workExperience, index) => {
+                  workExperience.map((_workExperience, index) => {
                     return (
                       <React.Fragment key={index}>
                         <div>
@@ -113,7 +113,7 @@ const Home = (props) => {
                           {
                             skill.skills_array.map((_skill, index) => {
                               return (
-                                <Chip key={index} color="primary" label={_skill.skill_name} />
+                                  <div className={classes.skillsPill}>{_skill.skill_name}</div>
                               )
                             })
                           }

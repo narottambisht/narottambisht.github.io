@@ -1,14 +1,14 @@
 import firebase from "firebase";
 
 const firebaseConfig = firebase.initializeApp({
-  apiKey           : "AIzaSyBNW35sc1XW4jz8km47M9R4n9hScEO-kvo",
-  authDomain       : "narottam-portfolio.firebaseapp.com",
-  databaseURL      : "https://narottam-portfolio.firebaseio.com",
-  projectId        : "narottam-portfolio",
-  storageBucket    : "narottam-portfolio.appspot.com",
-  messagingSenderId: "387012073941",
-  appId            : "1:387012073941:web:a125957edf7307c366855c",
-  measurementId    : "G-V3E6ZHHZVF",
+  databaseURL      : "https://portfolio.firebaseio.com",
+  apiKey: "AIzaSyC3T0ZI9CDOi7GSnMW0vXkbwNlHkNFD4pQ",
+  authDomain: "portfolio-d5658.firebaseapp.com",
+  projectId: "portfolio-d5658",
+  storageBucket: "portfolio-d5658.appspot.com",
+  messagingSenderId: "166302306604",
+  appId: "1:166302306604:web:f10ff8ac69ab6c226e1c89",
+  measurementId: "G-HKCF6Q51Q5"
 });
 
 const firestoreDB = firebaseConfig.firestore();

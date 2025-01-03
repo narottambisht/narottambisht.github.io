@@ -6,10 +6,16 @@ export const RootContextProvider = props => {
   const [rootStore, setRootStore] = useState({ drawerOpen: false, theme: "dark" });
 
   useEffect(() => {
-    async function fetchIpInfo () {
-      const ipInfo = await fetch("https://ipapi.co/json/");
-      let ipInfoResponseJson = await ipInfo.json();
-      setRootStore({ ...rootStore, ipInfo: ipInfoResponseJson });
+    function fetchIpInfo () {
+      fetch("https://ipapi.co/json/").then(response => {
+        if (response.ok) {
+          let ipInfoResponseJson = response.json();
+          setRootStore({ ...rootStore, ipInfo: ipInfoResponseJson });
+        }
+      }).catch(error => {
+        console.log(error);
+        setRootStore({ ...rootStore, ipInfo: {} });
+      })
     }
 
     fetchIpInfo();
